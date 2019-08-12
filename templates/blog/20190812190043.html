@@ -1,0 +1,50 @@
+<h2>Perlの強力な「FFI」モジュールの紹介</h2>
+
+みなさんFFIって知ってますか。
+
+他言語関数インターフェース (Foreign function interface)っていって、C言語で書いた静的ライブラリやダイナミックリンクライブラリを、直接プログラムから呼び出すことができちゃうんです!
+
+組み込みソフトウェアなんかだと、Cの関数を呼び出したいことが多いからFFIがあると便利だね。
+
+##「FFI::Platypus」というPerlの強力な「FFI」モジュール
+
+「FFI::Platypus」というのは、 2015年1月7日リリースで、新しいモジュールだ。ドキュメントを読むと、これぞPerlでFFIの決定版と呼べるような機能がそろっている。
+
+[FFI::Platypusの公式ドキュメント](http://search.cpan.org/dist/FFI-Platypus/lib/FFI/Platypus.pm)
+
+そうそう「FFI::Raw」では、ちょっと物足りなかったんだよね。「機能が足りない」とか「やりたいことが本当にできるのかな」とか。
+
+でも「FFI::Platypus」なら、FFIでのやりたいことは、たいてい実現できそうな感じがする。
+
++ C, C++, Fortran, Rust, Pascalのライブラリが呼び出し可能
++ PerlのXSを書かないで、Cをバインディングできるよ
++ ピュアーPerlでポータブル、どこでも動く
+
+##FFI::Platypusを使う
+
+FFI::Platypusはこんな風に使う。公式ドキュメントから引用。
+
+```
+ use FFI::Platypus;
+ 
+ my $ffi = FFI::Platypus->new;
+ $ffi->lib(undef); # search libc
+ 
+ # call dynamically
+ $ffi->function( puts => ['string'] => 'int' )->call("hello world");
+ 
+ # attach as a xsub and call (much faster)
+ $ffi->attach( puts => ['string'] => 'int' );
+ puts("hello world");
+```
+
+C言語の関数「puts」が直接呼び出せているね。
+
+##まとめ
+
+Perlに強力なFFIモジュールが登場したということをお知らせしました。組み込みのシステムなんかで、C言語直接呼出したい場合は、利用してみよう。ピュアPerlだから、インストールも簡単よ。
+
+
+
+
+

@@ -1,0 +1,122 @@
+<h2>静的コンポーネントとJavaScriptの動的コンポーネントを共有する方法</h2>
+
+静的コンポーネントとJSの動的コンポーネントを共有する方法を考えてみた。
+
+# 動機
+
+動的に生成するコンポーネントと静的に生成するコンポーネントが共有できれば、ソースコードの管理がとても楽になると考えた。
+
+# デモ
+
+作成したサンプルのデモはこちら。ボタンを押すとURLが動的に書き変わります。見た目にはわかりずらいですが、静的コンポーネントとJSの動的コンポーネントが共有されています。
+
+[デモはこちら](http://perlcodesample.sakura.ne.jp/examples/20170502.cgi)
+
+# 概要
+
++ 使っているJSのライブラリはjQueryだけ。
++ コンポーネント全体をJavaScriptを含めて描画。
++ パラメーターの違いだけでajaxリクエストを投げ、個々の要素についてはJavaScriptで操作していない。
++ ページ全体のHTMLの生成もajaxによるJSONの生成も単一のファイルの中で行っている
+
+***利点としてソースコードが非常に簡潔になる。***
+
+***初回描画が静的に行われるのでSEO的にもばっちり***
+
+不安な点はJavaScriptに詳しくないので、このコードに問題点が含まれているかがわからない。詳しい人いたら教えてください。
+
+# ソースコード
+
+静的コンポーネントとJSの動的コンポーネントを共有したサンプルです。JSとPerlとMojolicious::Liteを使って書いています。
+
+```
+use Mojolicious::Lite;
+
+any '/' => sub {
+  my $self = shift;
+  
+  $self->render_maybe('index');
+};
+
+app->start;
+
+__DATA__
+
+@@ index.html.ep
+<%
+  my $components = {};
+  my $http_url = 'http://some.com';
+  my $https_url = 'https://some.com';
+%>
+
+% $components->{'url-bar'} = begin
+  %= javascript begin
+    $(document).ready(function () {
+      $('#url-bar').find('button').on('click', function () {
+        
+        var param = {};
+        
+        // Set parameter
+        param['component-name'] = 'url-bar';
+        
+        if ($(this).attr('id') === 'url-bar-https') {
+          param['url'] = '<%= $https_url %>';
+        }
+        else {
+          param['url'] = '<%= $http_url %>';
+        }
+        
+        $.post('<%= url_for %>', param, function (result) {
+          $('#' + param['component-name']).html(result['html']);
+        });
+      });
+    });
+  % end
+  <div>
+    <button id="url-bar-http">HTTP</button>
+    <button id="url-bar-https">HTTPS</button>
+    <%= text_field 'url' => param('url') // $http_url %>
+  </div>
+% end
+
+<%
+  # コンポーネントの描画処理
+  if ($self->req->method eq 'POST') {
+    my $component_name = param('component-name') // '';
+    my $component = $components->{$component_name};
+    
+    if ($component) {
+      my $html = $component->();
+      
+      $self->render(json => {html => $html});
+      return;
+    }
+    else {
+      $self->reply->not_found;
+      return;
+    }
+  }
+%>
+
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>静的コンポーネントとJSの動的コンポーネントを共有する方法</title>
+    <%= javascript '/mojo/jquery/jquery.js' %>
+  </head>
+  <body>
+    
+    <h1>静的コンポーネントとJSの動的コンポーネントを共有する方法</h1>
+    
+    <div id="url-bar">
+      %= $components->{'url-bar'}->();
+    </div>
+  </body>
+</html>
+```
+
+ソースコードワンポイント。
+
++ render_maybeを使うと、HTMLとJSONが選択的に描画できる。
++ Mojoliciousのブロック機能を使って、描画するコンポーネントを作成
+

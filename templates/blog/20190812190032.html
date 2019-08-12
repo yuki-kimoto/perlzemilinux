@@ -1,0 +1,50 @@
+<h2>Windowsでmakeできる環境を作成する</h2>
+
+　Unix、Linux、Macではmakeというプログラムが付属していますので、makeを行うためのプログラムを特別にインストールする必要はありません。
+
+　Windows環境ではmakeができる環境がありません。makeが必要なCPANモジュールをインストールするには、Windows用のmakeプログラム( nmake )をインストールする必要があります。
+
+##nmakeのインストール
+
+###nmakeのダウンロード
+
+　Windows用のmakeプログラムとしてnmakeと呼ばれるものがあるのでインストールします。
+
+　以下のページがnmakeをインストールするための解説のページです。
+
+
+[Make for Windows: NMake](http://johnbokma.com/perl/make-for-windows.html)
+
+このページの「Downloading NMake」という見出しの
+
+[Microsoft Knowledge Base, article 132084](http://support.microsoft.com/default.aspx?scid=kb;en-us;Q132084)
+
+というページに行きます。
+
+ここで、中ほどにある
+
+[Nmake15.exe](http://download.microsoft.com/download/vc15/patch/1.52/w95/en-us/nmake15.exe)
+
+からnmakeの圧縮ファイルをダウンロードします。( 2008年10月27日 )
+
+###nmakeの解凍
+
+　ダウンロードしたNmake15.exeをダブルクリックすると解凍されて、NMAKE.EXE と NMAKE.ERR というファイルが作成されます。
+
+###nmakeのインストール
+
+　インストール作業としては、Perlの本体がおかれているディレクトリに NMAKE.EXE と NMAKE.ERR というファイルをコピーするだけです。
+
+　私の場合は、
+
+C:\Perl\bin
+
+　というパスでした。ここにコピーします。これでインストールは完了です。
+
+###注意点
+
+　nmakeというプログラムは、perlのモジュールをインストールするとき以外にも使用されます。そのため、C:\Perl\binというディレクトリにおいておくことは、どちらかといえば不適切です。(私は C:\Perl\binにおきっぱなしですが... )
+
+　C:\nmakeというディレクトリを作って、環境変数PATHを設定しておくのがよいかもしれません。
+
+　また、Visual Studio や Visual C++ をインストールしている人はもうすでに、nmakeがインストールされているようです。( もしかしたら何の作業もいらないかもしれませんし、何か作業がいるかもしれませんがわたしが持っていないためよくわかりません。)

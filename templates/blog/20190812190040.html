@@ -1,0 +1,94 @@
+<h2>【Perl】【Mojolicious】Webアプリを「デバッガ」で簡単にデバッグする方法</h2>
+
+![WIN_20170119_23_30_43_Pro.jpg](https://qiita-image-store.s3.amazonaws.com/0/155418/54e08b7e-610c-7b77-fdc1-be2f0a076b62.jpeg)
+
+Webアプリって目で見て確認するだけ? でも、本当に困ったときは、大事な部分は、プログラムの内部の動きも見てみたい。そんなときありますよね。
+
+# Mojoliciousのデバッグ
+
+<strong>Mojolicious</strong>ではスクリプトを簡単に<strong>デバッグ</strong>することができます。とても短い記述で試験をかけるというのがうれしいですね。
+
+まずはMojolicious::Liteで作成した簡単なWebアプリです。
+
+```
+use Mojolicious::Lite;
+
+get '/' => sub {
+  my $self = shift;
+
+  $DB::single = 1;    
+
+  $self->render(text => 'Hello');
+};
+
+app->start;
+```
+
+このファイルを「myapp.pl」という名前で保存してください。注目するポイントは<b>「$DB::single = 1」</b>という記述です。これはスクリプトの中にブレークポイントを埋め込むための記法です。デバッガはこの行を見つけるとその位置でストップします。
+
+次に試験用のディレクトリを作成します。
+
+```
+mkdir t
+```
+
+tというディレクトリの中に試験用のスクリプトを配置します。このディレクトリの中に「basic.t」という名前のスクリプトを作成してみてください。
+
+## URLにHTTPアクセスするためのプログラム
+
+では、試験スクリプトを書いてみましょう。
+
+```
+use Test::More 'no_plan';
+
+use strict;
+use warnings;
+use utf8;
+
+use Test::Mojo;
+
+use FindBin;
+$ENV{MOJO_HOME} = "$FindBin::Bin/..";
+require "$ENV{MOJO_HOME}/myapp.pl";
+
+my $t = Test::Mojo->new;
+$t->get_ok('/');
+```
+
+このスクリプトはMojolicious::LiteのPODに記述されている自動試験用のスクリプトですが、デバッグを行うためにも利用することができます。
+
+<b>「$t->get_ok('/')」</b>という記述で実際に「/」にアクセスした場合の処理が実行されるからです。
+
+次にこのテストスクリプトををデバッガを使って起動しましょう。実行するディレクトリは、tディレクトリの中ではなくて、スクリプトのおいてあるディレクトリから行うのがよいでしょう。
+
+```
+perl -d t/basic.t 
+```
+
+libディレクトリの中にモジュールを配置してある場合は次のようにlibディレクトリをモジュールの検索パスに追加してあげます。
+
+```
+perl -d -Ilib t/basic.t 
+```
+
+# ブレークポイントで止まるには
+
+デバッガが起動したら「c」コマンドで「$DB::single = 1」と記述したブレークポイントまで進みます。
+
+```
+c
+```
+
+デバッグをしたい位置に到着することができます。
+
+```
+5
+6:          $DB::single = 1;
+7
+8==>        $self->render(text => 'Hello');
+9:      };
+10
+11:     app->start;
+```
+
+このテクニックを覚えておけば、Mojolicious::Liteの開発はいっそう楽なものになります。
