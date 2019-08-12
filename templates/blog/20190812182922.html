@@ -1,0 +1,15 @@
+<h2>GitのリポジトリのURLを記述する / Git</h2>
+
+
+
+　gitweb.cgiを使っていると、SummaryページにURLという項目があることに気づくと思います。これを記述するには<b>.git</b>リポジトリの下に<b>cloneurl</b>というファイルを配置して記述します。
+
+```
+.git/cloneurl
+```
+
+　一行に1つのURLを記述します。
+```
+http://somerep.git
+git://somerep.git
+```
