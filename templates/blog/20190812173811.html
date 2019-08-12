@@ -1,0 +1,20 @@
+<h2>nslookupとdigのインストール / CentOS</h2>
+
+(CentOS5.7で確認)
+
+　DNSの設定を確認するnslookupやdigは、bind-utilsパッケージに含まれます。bind-utilsパッケージがインストールしましょう。
+
+```
+# bind-utilsパッケージのインストール
+yum -y install bind-utils
+```
+
+　これで、nslookupコマンドとdigコマンドが使用できます。
+
+```
+# nslookup
+nslookup ドメイン名
+
+# dig
+dig ドメイン名
+```

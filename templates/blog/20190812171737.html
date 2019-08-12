@@ -1,0 +1,34 @@
+<h2>ボリュームグループ(VG)の物理エクステント(PE)を確認する vgdisplay / CentOS</h2>
+
+(CentOS5.7で確認)
+
+　<strong>LVM</strong>で、<strong>ボリュームグループ</strong>(VG)の物理エクステント(PE)を確認するには<strong>vgdisplay</strong>を使用します。
+
+```
+vgdisplay
+```
+
+　出力結果の「PE Size」の部分を確認します。
+
+```
+  --- Volume group ---
+  VG Name               VolGroup00
+  System ID
+  Format                lvm2
+  Metadata Areas        1
+  Metadata Sequence No  5
+  VG Access             read/write
+  VG Status             resizable
+  MAX LV                0
+  Cur LV                4
+  Open LV               4
+  Max PV                0
+  Cur PV                1
+  Act PV                1
+  VG Size               124.88 GB
+  PE Size               32.00 MB
+  Total PE              3996
+  Alloc PE / Size       384 / 12.00 GB
+  Free  PE / Size       3612 / 112.88 GB
+  VG UUID               qKFzQg-9G60-bpok-IVK9-IPRV-D3sb-b65eBo
+```

@@ -1,0 +1,152 @@
+<h2>sambaの導入 | Perl環境構築</h2>
+
+　sambaはネットワークで接続されたLinuxのファイルシステムを、Windowsのファイルシステムであるかのように扱うことができるアプリケーションです。sambaを導入すれば、Windows上でフォルダを開いて、Linux上のファイルにアクセスできます。
+
+##Samba関連のパッケージ
+
+|samba-common|必須|
+|samba|必須|
+|samba-client|Sambaのクライアント|
+|samba-swat|SambaをWebアプリケーションを通して操作する|
+
+##Sambaのインストール
+
+　この中で、samba-commonとsambaが必須ですがいちおう全部入れておきましょう。
+
+```
+# インストール
+yum -y install samba-common
+yum -y install samba
+yum -y install samba-client
+yum -y install samba-swat
+
+# インストール後の確認
+rpm -qa | grep samba
+
+# 確認項目
+# samba-swat-3.0.28a-1.fc7
+# samba-common-3.0.28a-1.fc7
+# samba-client-3.0.28a-1.fc7
+# samba-3.0.28a-1.fc7
+
+```
+
+##サービス起動スクリプト
+
+　サービス起動スクリプトを見ればいろいろな情報がわかります。
+
+```
+# サービス起動スクリプトを見る。
+view /etc/init.d/smb
+```
+
+##Sambaの自動起動の設定
+
+```
+# サービスに追加( sambaのサービス名はsmb)
+chkconfig --add smb
+
+# mysqlがサービスに追加されたことの確認
+chkconfig --list | grep smb
+
+# ランレベルを指定した自動起動の設定
+chkconfig --level 35 smb on
+
+# mysqlの自動起動が有効になっているかの確認
+chkconfig --list | grep smb
+
+# 確認項目
+# smb             0:off   1:off   2:off   3:on    4:off   5:on    6:off
+```
+
+##Sambaを起動する
+
+```
+# 起動
+service smb start
+
+# 起動の確認
+service --status-all | grep smb
+
+# 確認項目
+# smbd (pid 5057 5041) を実行中...
+```
+
+##sambaの設定ファイル
+　sambaの設定ファイルは以下です。
+
+```
+/etc/samba/smb.conf
+```
+
+　まず設定ファイルを変更します。
+
+##設定の確認
+
+　testparm -sv コマンドで、sambaの設定を確認できます。
+
+```
+# 設定の確認
+testparm -sv
+```
+
+##sambaのログファイル
+
+sambaのログファイルは
+
+```
+/var/log/samba
+```
+
+以下にあります
+
+##sambaユーザの作成
+
+　sambaのためのユーザを作成する必要があります。Unixのログインユーザとは別に作成する必要があります。
+
+```
+# 追加する場合
+pdbedit -a -u ユーザ名
+
+# 削除する場合
+pdbedit -x ユーザ名
+
+# ユーザーの一覧表示
+pdbedit -L
+```
+
+##sambaの再起動
+
+```
+service smb restart
+```
+
+##Windows上からファイルにアクセス
+
+```
+\\IPアドレス
+\\192.168.0.2
+```
+
+とアドレスバーに入力します。デフォルトでは、ユーザのホームディレクトリが見えるはずです。これでsambaを使えるようになるまでの設定は終了です。
+
+##ワークグループ名を変更する。
+　MYGROUPというのはデフォルトのワークグループ名です。これを変更するには設定ファイルの
+
+```
+workgroup = MYGROUP
+```
+
+を変更します。その後smbとnmbを再起動します。
+
+##ホームディレクトリ以外にアクセスする
+
+　デフォルトでは、ホームディレクトリしか見えませんが、設定ファイルに以下の項目を加えると指定したディレクトリ以下のファイルが見えるようになります。[]のなかは、共有フォルダ名です。pathが、実際のパスです。
+
+```
+[etc]
+        comment = Etc Directories
+        browseable = yes
+        writable = yes
+        path = /etc
+```

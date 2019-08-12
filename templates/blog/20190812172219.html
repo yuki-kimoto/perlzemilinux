@@ -1,0 +1,31 @@
+<h2>論理ボリュームの作成とファイルシステムのフォーマットの手順 | CentOS</h2>
+
+　<strong>論理ボリューム</strong>を<strong>作成</strong>するには<strong>lvcreate</strong>コマンドを使用します。
+
+```
+lvcreate -L 95G -n LogVol04 VolGroup00
+```
+
+　ファイルシステムをフォーマットします。
+
+```
+mkfs.ext3 -j /dev/VolGroup00/LogVol04
+```
+
+　ファイルシステムをマウントします。(もともとディレクトリの中にあるファイルは「cp -Rp」などでどこかにコピーしておきましょう。)
+
+```
+mount /dev/VolGroup00/LogVol04 /var/lib/mysql
+```
+
+　ファイルシステムの自動マウントの設定を行います。
+
+```
+# ファイルの自動マウントの設定ファイル
+vi /etc/fstab
+```
+
+　以下の項目を追加。
+```
+/dev/VolGroup00/LogVol04	/var/lib/mysql	ext3	defaults	1	2
+```

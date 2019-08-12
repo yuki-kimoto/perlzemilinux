@@ -1,0 +1,44 @@
+<h2>CentOSでのApacheの設定ファイル httpd.confの場所</h2>
+
+　<strong>httpd.conf</strong>は、WebサーバーであるApacheの設定ファイルの名前です。どこにあるかわからないという場合もあるので、探し方を紹介します。
+
+##Unix、Linuxの場合
+
+　Apacheの設定ファイルであるhttp.confの場所はサービス起動スクリプトに記載されています。
+　サービス起動スクリプトは
+
+```
+/etc/init.d
+```
+
+というディレクトリに存在し
+
+```
+httpd
+```
+
+というのがApacheのサービス起動スクリプトです。このファイルの中をmoreなどのコマンドで覗けば設定ファイルの場所がわかります。
+
+```
+more /etc/init.d/httpd
+```
+
+　次のような感じで記載されています。
+
+```
+# config: /etc/httpd/conf/httpd.conf
+```
+　
+　また単純にhttpd.confをfindコマンドで探してもよいでしょう。
+
+```
+find / -name httpd.conf
+```
+
+##Windowsの場合
+
+　Windowsの場合は次のファイルになります。(Apache2.2の場合の例です)
+
+```
+C:\Program Files\Apache Software Foundation\Apache2.2\conf\httpd.conf
+```

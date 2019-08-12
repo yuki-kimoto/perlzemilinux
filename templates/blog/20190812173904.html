@@ -1,0 +1,17 @@
+<h2>参照先のDNSサーバーのIPアドレスを調べる / CentOS</h2>
+
+
+(CentOS5.7で確認)
+
+　CentOSで参照先のDNSサーバーのIPアドレスを調べるには<b>/etc/resolv.conf</b>というファイルの中身を確認します。
+
+```
+cat /etc/resolv.conf
+```
+
+　以下のようにDNSサーバーのIPアドレスが表示されます。
+
+```
+nameserver 192.168.0.1
+nameserver 192.168.0.2
+```

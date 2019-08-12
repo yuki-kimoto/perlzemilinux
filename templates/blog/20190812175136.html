@@ -1,0 +1,39 @@
+<h2>ディスクの使用状況をディレクトリごとに確認する du / CentOS</h2>
+
+　ディスクの使用状況をディレクトリごとに確認するには<strong>du</strong>コマンドを使用します。
+
+```
+du ディレクトリ
+```
+
+　<strong>-h</strong>オプションを使用すると単位が見やすくなります。
+
+```
+du -h ディレクトリ
+```
+
+　使用状況を上位から順番に表示するにはsortとheadを組み合わせます。
+
+```
+du | sort -rn | head -20
+```
+
+　次のように出力されます。
+
+```
+1345204 .
+1271656 ./lib
+1245524 ./lib/mysql
+67100   ./cache
+65784   ./cache/yum
+31912   ./cache/yum/dag
+25200   ./cache/yum/base
+23928   ./lib/rpm
+10740   ./lib/mysql/foo
+7708    ./cache/yum/updates
+3456    ./log
+2152    ./www
+1876    ./lib/mlocate
+1812    ./www/icons
+1252    ./log/audit
+```

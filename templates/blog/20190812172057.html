@@ -1,0 +1,21 @@
+<h2>論理ボリューム(LV)を作成する / CentOS</h2>
+
+(CentOS5.7で確認)
+
+　<strong>論理ボリューム</strong>(LV)を作成するには<strong>lvcreate</strong>コマンドを使用します。
+
+```
+lvcreate -L 容量 -n 論理ボリューム ボリュームグループ
+```
+
+　105Gの容量で、VolGroup00というボリュームグループの上に、LogVol04という論理ボリュームを作成するサンプルです。
+
+```
+lvcreate -L 95G -n LogVol04 VolGroup00
+```
+
+　作成した論理ボリュームは<b>lvdisplay</b>コマンドで確認することができます。
+
+```
+lvdisplay
+```
