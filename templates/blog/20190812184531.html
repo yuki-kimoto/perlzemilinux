@@ -1,0 +1,17 @@
+<h2>Mojoliciousの「url_with」メソッドは「クエリ文字列」を引き継いでくれるので超便利</h2>
+
+今日の「Mojolicious」のTipsは「url_with」メソッドです。url_withメソッドは、現在のクエリパラメータをそのまま復元してくれます。
+
+```
+# アクセスURLが「/foo?a=1&b=2」ならそれをそのまま復元
+url_with
+```
+
+これは、ページネーションを作成しているときに特に便利で、クエリ文字列を引き継ぎつつ、ページの変更だけを簡単に行うことができます。
+
+```
+#「/foo?a=1&b=2&page=2」になる
+url_with->query([page => 2]);
+```
+
+Perlのページネーションモジュールには「[Data::Page](http://search.cpan.org/dist/Data-Page/lib/Data/Page.pm)」というのがありますけど、これとの相性がばっちりです。
