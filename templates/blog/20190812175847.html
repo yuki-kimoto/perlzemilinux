@@ -1,0 +1,52 @@
+<h2>サービス起動スクリプト / CentOS</h2>
+
+
+
+(CentOS5.7で確認)
+
+　<strong>サービス起動スクリプト</strong>とは、サービスを開始するときやサービスを停止するときに利用されるシェルスクリプトです。サービス起動スクリプトの中を見れば、サービス名やコンフィグファイルの位置などの情報を見ることができます。
+
+　新しいサービス(Webサーバやデータベースサーバ、SSHサーバなど)をインストールした場合は、サービス起動スクリプトの中をのぞけば、関連するファイルがどこにあるのかを知ることができます。
+
+##サービス起動スクリプトのあるディレクトリ
+　サービス起動スクリプトは以下のディレクトリに格納されます。この中にあるファイルをのぞけば、さまざまなことがわかります。
+
+```
+/etc/init.d
+```
+
+　このディレクトリにあるファイルはたとえば、以下のようになっており、chkconfigでサービスを登録したりserviceコマンドでサービスを開始・停止する場合のサービス名になります。
+
+```
+auditd        halt       mdmonitor   network      rsyslog         vncserver
+avahi-daemon  ip6tables  messagebus  ntpd         setroubleshoot  xfs
+firstboot     iptables   netconsole  ntpdate      smolt           xinetd
+functions     killall    netfs       rdisc        sshd
+haldaemon     mcstrans   netplugd    restorecond  udev-post
+```
+
+##サービス起動スクリプトの内容
+　たとえばsshdのサービス起動スクリプトの内容を見てみるとどのランレベルで自動起動すればよいのか、コンフィグファイルはどこにあるかなどという情報を見ることができます。
+```
+view /etc/init.d/sshd
+```
+
+```
+#!/bin/bash
+#
+# Init file for OpenSSH server daemon
+#
+# chkconfig: 2345 55 25
+# description: OpenSSH server daemon
+#
+# processname: sshd
+# config: /etc/ssh/ssh_host_key
+# config: /etc/ssh/ssh_host_key.pub
+# config: /etc/ssh/ssh_random_seed
+# config: /etc/ssh/sshd_config
+# pidfile: /var/run/sshd.pid
+```
+
+　chkconfig の直後の2345というのが、chkconfigコマンドで自動起動の設定が推奨されるランレベルです。configとなっている部分がこのアプリケーションの設定ファイルの格納場所です。
+
+　sshdのサービス起動スクリプトに限らず他のスクリプトも同じようになっています。設定ファイルの位置を忘れたら、サービス起動スクリプトを見ればわかるということを覚えておくととても便利です。

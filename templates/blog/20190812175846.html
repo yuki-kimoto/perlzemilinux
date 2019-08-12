@@ -1,0 +1,22 @@
+<h2>service - サービスの起動と終了 | CentOS</h2>
+
+
+
+(CentOS5.7で確認)
+　serviceはサービスを起動・終了するためのコマンドです。
+```
+# サービスが開始しているかどうかの確認
+service sshd status
+
+# すべてのサービスでの確認
+service --status-all
+
+# サービスの開始
+service sshd start
+
+# サービスの停止
+service sshd stop
+
+# サービスの再起動
+service sshd restart
+```
