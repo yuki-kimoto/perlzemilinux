@@ -1,6 +1,6 @@
 <h2>Apacheの情報 | CentOSサーバー構築</h2>
 
-##.htaccessとは / Apacheメモ
+<h3>.htaccessとは / Apacheメモ</h3>
 
 　.htaccessとは簡単にいうとApacheの設定ファイルを上書きするためのファイルです。Apacheの基本的な設定はhttpd.confで行います。この設定に何か追加が必要な場合は対象のディレクトリ.htaccessファイルを置くことで設定を変更したり、上書いたりすることができます。
 
@@ -12,11 +12,11 @@ http://httpd.apache.org/docs/2.0/ja/mod/mod_alias.html#redirect
 
 　項目にコンテキストというものがあります。この部分に.htaccessという項目があれば.htaccessで記述することのできるディレクティブであるということがわかります。
 
-###.htaccessの効果のある範囲
+<h4>.htaccessの効果のある範囲</h4>
 
 　.htaccessは.htaccessを置いたディレクトリとサブディレクトリのすべてに対して効果を持ちます。.htaccessを置いたディレクトリだけに効果があるのではないので注意しましょう。
 
-###.htaccessは基本的には使わない
+<h4>.htaccessは基本的には使わない</h4>
 
 　.htaccessを使用する必要があるのは基本的にレンタルサーバなどを借りていて自分でWebサーバを構築していない場合だけです。この場合はhttpd.confを自分で設定することができないからです。
 
@@ -24,36 +24,36 @@ http://httpd.apache.org/docs/2.0/ja/mod/mod_alias.html#redirect
 
 　.htaccessを使う一番多い場面はアクセス制御を行う場合です。データを格納しておくファイルを置くディレクトリなどインターネットに公開したくないディレクトリに対して.htaccessを使用すればアクセス制御を行うことができます。
 
-###.htaccessに一般的に抱くイメージ
+<h4>.htaccessに一般的に抱くイメージ</h4>
 
 　また.htaccessという名前から多くの人が誤解してしまうのは、.htaccessはアクセス制御のためのファイルだということです。ここで解説したようにこれは間違いで、.htaccessはhttpd.confの設定を上書きするためのファイルです。アクセス制御はひとつの機能として行うことができるだけで.htaccessがアクセス制御のためのファイルなのではありません。
 
-##ScriptAlias CGIを実行するURLとディレクトリのマッピング
+<h3>ScriptAlias CGIを実行するURLとディレクトリのマッピング</h3>
 
 　ScriptAliasはCGIを実行するURLとディレクトリをマッピングするためのディレクティブです。
 http.confの中でデフォルトで次のように設定されているはずです。
 
-```
+<pre>
 ScriptAlias /cgi-bin/ "/var/www/cgi-bin/"
-```
+</pre>
 
 　この記述を行うと/var/www/cgi-bin/配下のファイルはCGIスクリプトであるとみなされます。また/cgi-bin/というURLが/var/www/cgi-bin/にマッピングされます。たとえば
 
-```
+<pre>
 /var/www/cgi-bin/sample.cgi
-```
+</pre>
 
 というCGIスクリプトはブラウザから
 
-```
+<pre>
 http://somehost/cgi-bin/sample.cgi
-```
+</pre>
 
 というURLで実行することができます。
 
-##アクセス制御
+<h3>アクセス制御</h3>
 
-###アクセス制御の基本
+<h4>アクセス制御の基本</h4>
 
 　Apacheのアクセス制御の考え方を最初に書いておきます。まずWebサーバの設定でインターネットに対して公開するためのディレクトリというものを指定します。これがドキュメントルートと呼ばれるディレクトリになります。ドキュメントルート配下のディレクトリインターネット上に公開されたどの人もファイルの内容を見ることができます。
 
@@ -61,13 +61,13 @@ http://somehost/cgi-bin/sample.cgi
 
 　ドキュメントルートの設定はhttpd.confでDocumentRootディレクティブによって行います。
 
-```
-# ドキュメントルートを指定するための設定
+<pre>
+<h3> ドキュメントルートを指定するための設定</h3>
 DocumentRoot "/var/www/html"
-```
+</pre>
 
-```
-#上のように記述すると /var/www/html だけがインターネットに公開される
+<pre>
+<h3>上のように記述すると /var/www/html だけがインターネットに公開される</h3>
 +--root--+--dir1
 |        |
 |        +--dir2
@@ -81,11 +81,11 @@ DocumentRoot "/var/www/html"
              +--error
              |
              +--data
-```
+</pre>
 
 　/var/www/html配下のすべてのファイルをインターネットから見ることができ、それ以外のディレクトリはインターネットから見ることができません。
 
-###インターネットから見えても良いファイルと見えてはいけないファイル
+<h4>インターネットから見えても良いファイルと見えてはいけないファイル</h4>
 
 　インターネットから見えても良いファイルと見えてはいけないファイルがあります。見えても良いファイルはHTMLファイル(.html)、画像ファイル(.gif,.jpeg,.png)、動画ファイル(.mgg)、JavaScript(.js)、CSSファイル(.css)などです。
 
@@ -97,10 +97,10 @@ DocumentRoot "/var/www/html"
 
 　このようなファイルにはインターネットからアクセスできないようにアクセス制御を行う必要があります。
 
-###アクセスを拒否する設定
+<h4>アクセスを拒否する設定</h4>
 
 　ひとつの例としてdataというディレクトリに対してアクセスを拒否する設定を行います。ファイルの構成としてはdataディレクトリ配下に.htaccessを置きます。そしてこの.htaccess1の中にアクセスを拒否する設定を行います。
-```
+<pre>
 var--www--html--+--index.html
                 |
                 +--img--+--image1.png
@@ -115,17 +115,17 @@ var--www--html--+--index.html
                          +--.htaccess   .htaccessを適切に記述するとdata配下の
                                         ファイル(data.txtとpassword.txt)
                                         にアクセスできなくなる。
-```
+</pre>
 
 .htaccessファイルはの記述は次のようになります。
 
-```
+<pre>
 Deny form all
-```
+</pre>
 
 　これはすべてのIPアドレスからのアクセスを拒否するという意味になります。これでdataディレクトリ配下へのアクセスはできなくなります。
 
-###.htaccessの配置する場合の注意点
+<h4>.htaccessの配置する場合の注意点</h4>
 
 　.htaccessに関する注意点がひとつあります。それはApacheのデフォルトの設定ではドキュメントルート配下での.htaccessの設置は意味を持たない設定になっているということです。これでは.htaccessを設定しても意味がありません。
 
@@ -133,7 +133,7 @@ Deny form all
 
 　ドキュメントルートのディレクトリのAllowOverRideの部分がNoneという.htaccessを無効にする設定になっているので、Limitというアクセス制御のディレクティブだけが意味を持つように変更します。
 
-```
+<pre>
 <Directory "/var/www/html">
     #
     # ...
@@ -144,11 +144,11 @@ Deny form all
     # ...
 
 </Directory>
-```
+</pre>
 
 　これを以下のように変更します。
 
-```
+<pre>
 <Directory "/var/www/html">
     #
     # ...
@@ -159,78 +159,78 @@ Deny form all
     # ...
 
 </Directory>
-```
+</pre>
 
-##ドキュメントルート配下でCGIの実行を許可する
+<h3>ドキュメントルート配下でCGIの実行を許可する</h3>
 
 　デフォルトではドキュメントルート配下でCGIを実行することができません。ドキュメントルート配下でCGIを実行するためには以下の設定をhttpd.confファイルで行います。
 
-###ExecCGIをドキュメントルートのOptionsディレクティブに追加
+<h4>ExecCGIをドキュメントルートのOptionsディレクティブに追加</h4>
 
 　ExecCGIをドキュメントルートのOptionsディレクティブに追加します。次の例はドキュメントルートが「/var/www/html」の場合の例です。
 
 　デフォルトでは以下のようになっています。
 
-```
+<pre>
 <Directory "/var/www/html">
 
 #
-# ..
+<h3> ..</h3>
 
     Options Indexes FollowSymLinks
 
 #
-# ..
+<h3> ..</h3>
 
 </Directory>
-```
+</pre>
 
 　OptionsディレクティブにExecCGIを追加します。
 
-```
+<pre>
 <Directory "/var/www/html">
 
 #
-# ..
+<h3> ..</h3>
 
     Options Indexes FollowSymLinks ExecCGI
 
 #
-# ..
+<h3> ..</h3>
 
 </Directory>
-```
+</pre>
 
 　これでドキュメントルート配下でCGIを実行することができるようになります。
 
-###拡張の動作に関する設定
+<h4>拡張の動作に関する設定</h4>
 
 　「.cgi」という拡張の場合はCGIスクリプトとして実行される設定を行うには「AddHandler」ディレクティブを使用します。これはApacheのデフォルトの設定のはずですので確認だけしておきましょう。以下のような記述がhttpd.confの中にあるはずです。
 
-```
+<pre>
 AddHandler cgi-script .cgi
-```
+</pre>
 
-##Apacheのバージョンを調べる
+<h3>Apacheのバージョンを調べる</h3>
 
 　Apcaheのバージョンを調べるには「httpd -v」を使用します。
 
-```
+<pre>
 httpd -v
-```
+</pre>
 
 　次のような出力を得ることができます。
 
-```
+<pre>
 Server version: Apache/2.2.8 (Unix)
 Server built:   Jan 24 2008 10:44:19
-```
+</pre>
 
-##バーチャルホストで複数IPアドレスに対応した複数のパスの設定
+<h3>バーチャルホストで複数IPアドレスに対応した複数のパスの設定</h3>
 
 　<strong>バーチャルホスト</strong>で<strong>複数IPアドレス</strong>に対応して複数パスの設定を行う例です。
 
-```
+<pre>
 <VirtualHost *:80>
 
     ProxyPass /app1 http://localhost:3000
@@ -240,6 +240,6 @@ Server built:   Jan 24 2008 10:44:19
     ProxyPassReverse /app2 http://localhost:3001
 
 </VirtualHost>
-```
+</pre>
 
 　「*:80」と指定することですべてのIPアドレスからの80番ポートへの接続を受けることができます。リバースプロキシとして設定するので「ProxyPass」と「ProxyPassReverse」の両方を指定します。

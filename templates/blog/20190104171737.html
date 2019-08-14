@@ -2,151 +2,151 @@
 
 　sambaはネットワークで接続されたLinuxのファイルシステムを、Windowsのファイルシステムであるかのように扱うことができるアプリケーションです。sambaを導入すれば、Windows上でフォルダを開いて、Linux上のファイルにアクセスできます。
 
-##Samba関連のパッケージ
+<h3>Samba関連のパッケージ</h3>
 
 |samba-common|必須|
 |samba|必須|
 |samba-client|Sambaのクライアント|
 |samba-swat|SambaをWebアプリケーションを通して操作する|
 
-##Sambaのインストール
+<h3>Sambaのインストール</h3>
 
 　この中で、samba-commonとsambaが必須ですがいちおう全部入れておきましょう。
 
-```
-# インストール
+<pre>
+<h3> インストール</h3>
 yum -y install samba-common
 yum -y install samba
 yum -y install samba-client
 yum -y install samba-swat
 
-# インストール後の確認
+<h3> インストール後の確認</h3>
 rpm -qa | grep samba
 
-# 確認項目
-# samba-swat-3.0.28a-1.fc7
-# samba-common-3.0.28a-1.fc7
-# samba-client-3.0.28a-1.fc7
-# samba-3.0.28a-1.fc7
+<h3> 確認項目</h3>
+<h3> samba-swat-3.0.28a-1.fc7</h3>
+<h3> samba-common-3.0.28a-1.fc7</h3>
+<h3> samba-client-3.0.28a-1.fc7</h3>
+<h3> samba-3.0.28a-1.fc7</h3>
 
-```
+</pre>
 
-##サービス起動スクリプト
+<h3>サービス起動スクリプト</h3>
 
 　サービス起動スクリプトを見ればいろいろな情報がわかります。
 
-```
-# サービス起動スクリプトを見る。
+<pre>
+<h3> サービス起動スクリプトを見る。</h3>
 view /etc/init.d/smb
-```
+</pre>
 
-##Sambaの自動起動の設定
+<h3>Sambaの自動起動の設定</h3>
 
-```
-# サービスに追加( sambaのサービス名はsmb)
+<pre>
+<h3> サービスに追加( sambaのサービス名はsmb)</h3>
 chkconfig --add smb
 
-# mysqlがサービスに追加されたことの確認
+<h3> mysqlがサービスに追加されたことの確認</h3>
 chkconfig --list | grep smb
 
-# ランレベルを指定した自動起動の設定
+<h3> ランレベルを指定した自動起動の設定</h3>
 chkconfig --level 35 smb on
 
-# mysqlの自動起動が有効になっているかの確認
+<h3> mysqlの自動起動が有効になっているかの確認</h3>
 chkconfig --list | grep smb
 
-# 確認項目
-# smb             0:off   1:off   2:off   3:on    4:off   5:on    6:off
-```
+<h3> 確認項目</h3>
+<h3> smb             0:off   1:off   2:off   3:on    4:off   5:on    6:off</h3>
+</pre>
 
-##Sambaを起動する
+<h3>Sambaを起動する</h3>
 
-```
-# 起動
+<pre>
+<h3> 起動</h3>
 service smb start
 
-# 起動の確認
+<h3> 起動の確認</h3>
 service --status-all | grep smb
 
-# 確認項目
-# smbd (pid 5057 5041) を実行中...
-```
+<h3> 確認項目</h3>
+<h3> smbd (pid 5057 5041) を実行中...</h3>
+</pre>
 
-##sambaの設定ファイル
+<h3>sambaの設定ファイル</h3>
 　sambaの設定ファイルは以下です。
 
-```
+<pre>
 /etc/samba/smb.conf
-```
+</pre>
 
 　まず設定ファイルを変更します。
 
-##設定の確認
+<h3>設定の確認</h3>
 
 　testparm -sv コマンドで、sambaの設定を確認できます。
 
-```
-# 設定の確認
+<pre>
+<h3> 設定の確認</h3>
 testparm -sv
-```
+</pre>
 
-##sambaのログファイル
+<h3>sambaのログファイル</h3>
 
 sambaのログファイルは
 
-```
+<pre>
 /var/log/samba
-```
+</pre>
 
 以下にあります
 
-##sambaユーザの作成
+<h3>sambaユーザの作成</h3>
 
 　sambaのためのユーザを作成する必要があります。Unixのログインユーザとは別に作成する必要があります。
 
-```
-# 追加する場合
+<pre>
+<h3> 追加する場合</h3>
 pdbedit -a -u ユーザ名
 
-# 削除する場合
+<h3> 削除する場合</h3>
 pdbedit -x ユーザ名
 
-# ユーザーの一覧表示
+<h3> ユーザーの一覧表示</h3>
 pdbedit -L
-```
+</pre>
 
-##sambaの再起動
+<h3>sambaの再起動</h3>
 
-```
+<pre>
 service smb restart
-```
+</pre>
 
-##Windows上からファイルにアクセス
+<h3>Windows上からファイルにアクセス</h3>
 
-```
+<pre>
 \\IPアドレス
 \\192.168.0.2
-```
+</pre>
 
 とアドレスバーに入力します。デフォルトでは、ユーザのホームディレクトリが見えるはずです。これでsambaを使えるようになるまでの設定は終了です。
 
-##ワークグループ名を変更する。
+<h3>ワークグループ名を変更する。</h3>
 　MYGROUPというのはデフォルトのワークグループ名です。これを変更するには設定ファイルの
 
-```
+<pre>
 workgroup = MYGROUP
-```
+</pre>
 
 を変更します。その後smbとnmbを再起動します。
 
-##ホームディレクトリ以外にアクセスする
+<h3>ホームディレクトリ以外にアクセスする</h3>
 
 　デフォルトでは、ホームディレクトリしか見えませんが、設定ファイルに以下の項目を加えると指定したディレクトリ以下のファイルが見えるようになります。[]のなかは、共有フォルダ名です。pathが、実際のパスです。
 
-```
+<pre>
 [etc]
         comment = Etc Directories
         browseable = yes
         writable = yes
         path = /etc
-```
+</pre>

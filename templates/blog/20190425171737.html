@@ -1,59 +1,59 @@
 <h2>【Perl】どんな環境でも動く「インストーラブルWebアプリ」を30分で作る方法</h2>
 
-![WIN_20170117_23_02_20_Pro.jpg](https://qiita-image-store.s3.amazonaws.com/0/155418/eb1c247c-aaac-d569-8fca-33f40ed1be87.jpeg)
+!<a href="https://qiita-image-store.s3.amazonaws.com/0/155418/eb1c247c-aaac-d569-8fca-33f40ed1be87.jpeg">WIN_20170117_23_02_20_Pro.jpg</a>
 「インストーラブルWebアプリ」というのは、gitなんかで、ソースコードをとってきって、ワンコマンドで簡単に、Webアプリのインストールが完了するものをいうことにする。
 
-# まずはMojoliciousでアプリを書こう
+<h3> まずはMojoliciousでアプリを書こう</h3>
 
 Mojoliciousだと小さなアプリが簡単にできる。
 
-```
+<pre>
 use Mojolicious::Lite;
 
 get '/' => {text => 'こんにちは'};
 
 app->start;
-```
+</pre>
 
 MojoliciousはPerlでWebフレームワークだ。
 
-# cpanmをダウンロード
+<h3> cpanmをダウンロード</h3>
 
 cpanmは、Perlのモジュールをインストールするためのツールなんだけど、これは、たった一枚のファイルでできている。つまり、ダウンロードして、配布に含めておくといい。
 
-```
+<pre>
 curl -L https://cpanmin.us/ -o cpanm
-```
+</pre>
 
-# cpanfileを作成
+<h3> cpanfileを作成</h3>
 
 cpanfileは、インストールしたいモジュールの設定が書ける。こんな風に。必要なものは全部書こう。
 
-```
+<pre>
 requires 'Mojolicious', '== 6.57';
 requires 'Time::HiRes', '== 1.9732';
 requires 'DBD::SQLite', '== 1.50';
 requires 'DBI', '== 1.634';
-```
+</pre>
 
 そして、cpanmから以下のオプションで、起動すれば、extlib以下に必要なモジュールが入る。
 
-```
+<pre>
 perl -Iextlib/lib/perl5 cpanm -L extlib --installdeps .
-```
+</pre>
 
-# hypnotoadでサーバー立ち上げ
+<h3> hypnotoadでサーバー立ち上げ</h3>
 
 最後にMojoliciousのhypnotoadコマンドを使うとWebアプリが立ち上がる。
 
-```
+<pre>
 DIR=$(dirname $0)
 PERL5LIB="$DIR/extlib/lib/perl5"
 export PERL5LIB
 exec $DIR/extlib/bin/hypnotoad $* $DIR/script/gitprep
-```
+</pre>
 
-# まとめ
+<h3> まとめ</h3>
 
 Perlを使うとどんな環境でも利用できるインストールがワンコマンドでできるWebアプリを、簡単に書けるよ
 

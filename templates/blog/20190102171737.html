@@ -4,18 +4,18 @@
 
 　<strong>論理ボリューム</strong>(LV)を作成するには<strong>lvcreate</strong>コマンドを使用します。
 
-```
+<pre>
 lvcreate -L 容量 -n 論理ボリューム ボリュームグループ
-```
+</pre>
 
 　105Gの容量で、VolGroup00というボリュームグループの上に、LogVol04という論理ボリュームを作成するサンプルです。
 
-```
+<pre>
 lvcreate -L 95G -n LogVol04 VolGroup00
-```
+</pre>
 
 　作成した論理ボリュームは<b>lvdisplay</b>コマンドで確認することができます。
 
-```
+<pre>
 lvdisplay
-```
+</pre>

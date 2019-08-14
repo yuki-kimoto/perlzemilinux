@@ -4,19 +4,19 @@
 
 　digコマンドを使ってMXレコードの値を確認するには以下のようにします。
 
-```
+<pre>
 dig ドメイン名 mx
-```
+</pre>
 
 　以下はサンプルです。
 
-```
+<pre>
 dig perlcodesample.com mx
-```
+</pre>
 
 　以下のような出力結果が返ってきます。
 
-```
+<pre>
 ; <<>> DiG 9.3.6-P1-RedHat-9.3.6-4.P1.el5_4.2 <<>> perlcodesample.com mx
 ;; global options:  printcmd
 ;; Got answer:
@@ -40,5 +40,5 @@ perlcodesample.com.     282     IN      A       59.106.185.196
 ;; SERVER: 192.168.5.2#53(192.168.5.2)
 ;; WHEN: Tue Jan  8 12:18:27 2013
 ;; MSG SIZE  rcvd: 113
-```
+</pre>
 　出力結果は多いですけれど、見る部分は<b>ANSWER SECTION</b>です。<b>MX</b>レコードが<b>優先度10</b>で<b>mail.perlcodesample.com.</b>に設定されているのが確認できます。

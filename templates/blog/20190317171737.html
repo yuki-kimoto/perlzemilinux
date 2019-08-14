@@ -2,11 +2,11 @@
 
 　C言語の制御文と繰り返し文を覚えましょう。
 
-##条件分岐 if ～ else if ～ else
+<h3>条件分岐 if ～ else if ～ else</h3>
 
 　<b>if ～ else if ～ else</b>文です。
 
-```c:
+<pre>
 int num = 1;
 if (num == 1) {
   // ...
@@ -17,13 +17,13 @@ else if (num == 2) {
 else {
   // ...
 }
-```
+</pre>
 
-##条件分岐 switch文
+<h3>条件分岐 switch文</h3>
 
 　C言語には<b>switch</b>文があります。複数分岐で整数を判定するときはswitch文を使えます。分岐の数が多いときはswitch文のほうがパフォーマンスがよいことが多いようです。breakを書かないと、breakより下の文が実行されてしまうので注意しましょう。
 
-```c:
+<pre>
 int num = 3;
 switch(num) {
   case 1:
@@ -38,53 +38,53 @@ switch(num) {
   default :
     // ...
 }
-```
+</pre>
 
-##繰り返し while
+<h3>繰り返し while</h3>
 
 　繰り返しをするときは<b>while</b>文を使うことができます。Perlと同じです。
 
-```c:
+<pre>
 int num = 0;
 
 while (num < 4) {
   // ...
   num++;
 }
-```
+</pre>
 
-##繰り返し for
+<h3>繰り返し for</h3>
 
 　繰り返しをするときは<b>for</b>文を使うことができます。Perlと同じです。
 
-```c:
+<pre>
 for (int i = 0; i < 5; i++) {
   // ...
 }
-```
+</pre>
 
-##繰り返しからの脱出
+<h3>繰り返しからの脱出</h3>
 
 　<b>break</b>文を使います。Perlのlastに該当します。
 
-```c:
+<pre>
 break;
-```
+</pre>
 
-##次のループに進む
+<h3>次のループに進む</h3>
 
 　<b>continue</b>文を使います。Perlのnextに該当します。
 
-```c:
+<pre>
 continue;
-```
+</pre>
 
-##サンプルコード
+<h3>サンプルコード</h3>
 
 　条件分岐と繰り返しのサンプルです。
 
-```c:
-#include <stdio.h>
+<pre>
+<h3>include <stdio.h></h3>
 
 int main () {
   int num = 2;
@@ -125,4 +125,4 @@ int main () {
   
   return 0;
 }
-```
+</pre>

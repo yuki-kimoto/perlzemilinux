@@ -2,8 +2,8 @@
 
 　では続きを見ていきましょう。前回のコードです。今回はmain関数の中身について解説します。
 
-```c:
-#include <stdio.h>
+<pre>
+<h3>include <stdio.h></h3>
 
 // エントリポイント
 int main (void) {
@@ -14,43 +14,43 @@ int main (void) {
   // 正常に終了したことを知らせる
   return 0;
 }
-```
+</pre>
 
-##main関数
+<h3>main関数</h3>
 
 　C言語ではプログラムにmain関数を書く必要があります。
 
-```c:
+<pre>
 int main (void) {
   
   // ...
   
   return 0;
 }
-```
+</pre>
 
 　Perlにはmain関数のようなものはなく、いきなり実行文を書くことができますが、C言語では<b>main関数</b>がエントリポイントになります。
 
-###intはmain関数の戻り値の型
+<h4>intはmain関数の戻り値の型</h4>
 
 　<b>int</b>はmain関数の戻り値の型です。型については、今後にお話します。なぜintかという理由は、どうやらCの標準規格でintを返すことになっているみたいです。
 
 　<b>return</b>を使って<b>0</b>を返します。0は一般的に正常終了を意味します。
 
-###コメント
+<h4>コメント</h4>
 
 　C言語の<b>コメント</b>は「//」です。
 
-```c:
+<pre>
 // Hello World!を出力
-```
+</pre>
 
-###Hello Worldの出力
+<h4>Hello Worldの出力</h4>
 
 　「Hello World」と文字列を出力するためには、<b>printf</b>関数を使用します。
 
-```c:
+<pre>
 printf("Hello World!\n");
-```
+</pre>
 
 　printf関数は、文字列を受け取って、標準出力に出力する関数です。

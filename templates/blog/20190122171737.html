@@ -5,13 +5,13 @@
 
 　<strong>パーティションの一覧</strong>を表示するには<strong>sfdisk</strong>コマンドで<strong>-l</strong>オプションを使用します。
 
-```
+<pre>
 sfdisk -l
-```
+</pre>
 
 　出力結果は以下のようになります。
 
-```
+<pre>
 ディスク /dev/hda: シリンダ数 264220、ヘッド数 16、63 セクタ/トラック
 Warning: The partition table looks like it was made
   for C/H/S=*/255/63 (instead of 264220/16/63).
@@ -23,12 +23,12 @@ For this listing I'll assume that geometry.
 /dev/hda2         13     273     261    2096482+  82  Linux swap / Solaris
 /dev/hda3        274   16577   16304  130961880   8e  Linux LVM
 /dev/hda4          0       -       0          0    0  空
-```
+</pre>
 
 　「/dev/hda」というデバイス(ハードディスク)に設けられたパーティションの一覧が表示されています。デバイスが複数ある場合は、すべてのデバイスに対してパーティションの一覧が表示されます。
 
 　デバイスを指定して表示することもできます。
 
-```
+<pre>
 sfdisk -l /dev/hda
-```
+</pre>

@@ -2,25 +2,25 @@
 
 　ディスクの使用状況をディレクトリごとに確認するには<strong>du</strong>コマンドを使用します。
 
-```
+<pre>
 du ディレクトリ
-```
+</pre>
 
 　<strong>-h</strong>オプションを使用すると単位が見やすくなります。
 
-```
+<pre>
 du -h ディレクトリ
-```
+</pre>
 
 　使用状況を上位から順番に表示するにはsortとheadを組み合わせます。
 
-```
+<pre>
 du | sort -rn | head -20
-```
+</pre>
 
 　次のように出力されます。
 
-```
+<pre>
 1345204 .
 1271656 ./lib
 1245524 ./lib/mysql
@@ -36,4 +36,4 @@ du | sort -rn | head -20
 1876    ./lib/mlocate
 1812    ./www/icons
 1252    ./log/audit
-```
+</pre>

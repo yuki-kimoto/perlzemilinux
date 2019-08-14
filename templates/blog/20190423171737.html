@@ -6,28 +6,28 @@ Perlのフレームワークにも、そういう機能があったらいいな�
 
 これを実現するためのMojoliciousのプラグインを作ったよ。
 
-## ルートを自動的に生成するためのプラグイン
+<h3> ルートを自動的に生成するためのプラグイン</h3>
 
 　<strong>Mojolicious::Plugin::AutoRoute</strong>は<strong>ルートを自動的に生成してくれるプラグイン</strong>です。テンプレートを置くだけで、Webアプリケーションを作成することができます。
 
 MojoliciousにPHPの機能を組み組むプラグインだよ。
 
-## Mojolicious::Plugin::AutoRouteの簡単な使い方
+<h3> Mojolicious::Plugin::AutoRouteの簡単な使い方</h3>
 
-```
+<pre>
 use Mojolicious::Lite;
 
 plugin 'AutoRoute';
-```
+</pre>
 
 これをコードに書いてから。<b>templates/auto</b>というディレクトリにファイルを置くだけ。
 
-```
+<pre>
 テンプレート                         URL
 templates/auto/index.html.ep        # /
               /foo.html.ep          # /foo
               /foo/bar.html.ep      # /foo/bar
               /foo/bar/baz.html.ep  # /foo/bar/baz
-```
+</pre>
 
 Webサイトを作るときは、ちょっとだけ動的で、ほとんど静的というページが大量にできるね。こういうときは、このプラグインを使うと、たくさん早く、ページが作れて、便利だよ。

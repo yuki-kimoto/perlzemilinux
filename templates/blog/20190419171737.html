@@ -4,34 +4,34 @@
 
 　Windows環境ではmakeができる環境がありません。makeが必要なCPANモジュールをインストールするには、Windows用のmakeプログラム( nmake )をインストールする必要があります。
 
-##nmakeのインストール
+<h3>nmakeのインストール</h3>
 
-###nmakeのダウンロード
+<h4>nmakeのダウンロード</h4>
 
 　Windows用のmakeプログラムとしてnmakeと呼ばれるものがあるのでインストールします。
 
 　以下のページがnmakeをインストールするための解説のページです。
 
 
-[Make for Windows: NMake](http://johnbokma.com/perl/make-for-windows.html)
+<a href="http://johnbokma.com/perl/make-for-windows.html">Make for Windows: NMake</a>
 
 このページの「Downloading NMake」という見出しの
 
-[Microsoft Knowledge Base, article 132084](http://support.microsoft.com/default.aspx?scid=kb;en-us;Q132084)
+<a href="http://support.microsoft.com/default.aspx?scid=kb;en-us;Q132084">Microsoft Knowledge Base, article 132084</a>
 
 というページに行きます。
 
 ここで、中ほどにある
 
-[Nmake15.exe](http://download.microsoft.com/download/vc15/patch/1.52/w95/en-us/nmake15.exe)
+<a href="http://download.microsoft.com/download/vc15/patch/1.52/w95/en-us/nmake15.exe">Nmake15.exe</a>
 
 からnmakeの圧縮ファイルをダウンロードします。( 2008年10月27日 )
 
-###nmakeの解凍
+<h4>nmakeの解凍</h4>
 
 　ダウンロードしたNmake15.exeをダブルクリックすると解凍されて、NMAKE.EXE と NMAKE.ERR というファイルが作成されます。
 
-###nmakeのインストール
+<h4>nmakeのインストール</h4>
 
 　インストール作業としては、Perlの本体がおかれているディレクトリに NMAKE.EXE と NMAKE.ERR というファイルをコピーするだけです。
 
@@ -41,7 +41,7 @@ C:\Perl\bin
 
 　というパスでした。ここにコピーします。これでインストールは完了です。
 
-###注意点
+<h4>注意点</h4>
 
 　nmakeというプログラムは、perlのモジュールをインストールするとき以外にも使用されます。そのため、C:\Perl\binというディレクトリにおいておくことは、どちらかといえば不適切です。(私は C:\Perl\binにおきっぱなしですが... )
 

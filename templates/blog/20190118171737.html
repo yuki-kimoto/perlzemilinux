@@ -4,19 +4,19 @@
 
 　DNSサーバーの設定を行ったときに、設定が正しいかどうかを確認したい場合があります。digというコマンドを使います。
 
-```
+<pre>
 dig ドメイン名
-```
+</pre>
 
 　以下のように使います。
 
-```
+<pre>
 dig perlcodesample.com
-```
+</pre>
 
 　ドメインの設定はゾーンファイルと呼ばれるものに記述されていますが、各レコードの設定を知ることができます。
 
-```
+<pre>
 ; <<>> DiG 9.3.6-P1-RedHat-9.3.6-4.P1.el5_4.2 <<>> perlcodesample.com
 ;; global options:  printcmd
 ;; Got answer:
@@ -37,7 +37,7 @@ perlcodesample.com.     3600    IN      NS      ns2.dns.ne.jp.
 ;; SERVER: 192.168.5.2#53(192.168.5.2)
 ;; WHEN: Tue Jan  8 11:23:09 2013
 ;; MSG SIZE  rcvd: 97
-```
+</pre>
 
 　<b>ANSWER SECTION</b>を見ると、<b>perlcodesample.com</b>というドメインが、<b>59.106.185.196</b>というIPアドレスを指していることがわかります。
 

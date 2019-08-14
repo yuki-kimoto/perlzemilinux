@@ -4,7 +4,7 @@ Mojolicious::Liteで書いたコードは、簡単にMojoliciousにアップグ�
 
 Mojolicious::Liteは簡単だけれど、少し大きくなると、非常に見通しが悪くなる。そんなときは、見通しのよいMojoliciousに、段階的にチェンジ!
 
-```
+<pre>
 use Mojolicious::Lite;
 
 get '/' => sub {
@@ -24,21 +24,21 @@ Index
 
 @@ foo.html
 Foo
-```
+</pre>
 
-### テンプレートの外だし
+<h4> テンプレートの外だし</h4>
 
 上記のMojolicious::Liteのテンプレートは、埋め込みのテンプレートになっているが、これを、templatesディレクトリに外だししてくれるコマンドがある
 
-```
+<pre>
 ./myapp.pl inflate
-```
+</pre>
 
 このコマンドを実行すると、__DATA__セクションのテンプレートがすべて、templatesディレクトリ以下に、出力される。
 
 そして、Mojolicious::Liteにある__DATA__セクションは消してしまおう。
 
-```
+<pre>
 use Mojolicious::Lite;
 
 get '/' => sub {
@@ -51,6 +51,6 @@ get '/foo' => sub {
 };
 app->start;
 
-```
+</pre>
 
 まずはこれが第一段階。

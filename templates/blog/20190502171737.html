@@ -2,15 +2,15 @@
 
 昨日書いた記事
 
-[静的コンポーネントとJavaScriptの動的コンポーネントを共有する方法](http://qiita.com/yukikimoto/items/1c8a4316b286b4ee2a03)
+<a href="http://qiita.com/yukikimoto/items/1c8a4316b286b4ee2a03">静的コンポーネントとJavaScriptの動的コンポーネントを共有する方法</a>
 
 の改善版ができたので公開。CGIだから少しもっさりしているが、サーバーで起動すれば大丈夫なはず。
 
-[デモ 20170503.cgi](http://perlcodesample.sakura.ne.jp/examples/20170503.cgi)
+<a href="http://perlcodesample.sakura.ne.jp/examples/20170503.cgi">デモ 20170503.cgi</a>
 
 改善点は、フォームで渡すPOSTパラメーターのような感覚で、実行できるところ。まるでreactのような書き方だけど、jQueryとJSON.parseを使っているだけ。
 
-```
+<pre>
 % $components->{'url-bar'} = begin
   <div>
     <button data-param='{"component":"url-bar", "url":"<%= $http_url %>"}'>HTTP</button>
@@ -18,13 +18,13 @@
     <%= text_field 'url' => param('url') // $http_url %>
   </div>
 % end
-```
+</pre>
 コンポーネント全体を書き換ながら、静的なコンテンツと動的なコンテンツを共有できる。
 
-## ソースコード
+<h3> ソースコード</h3>
 
-```
-#!/usr/bin/env perl
+<pre>
+<h3>!/usr/bin/env perl</h3>
 use FindBin;
 use lib "$FindBin::Bin/extlib/lib/perl5";
 
@@ -95,6 +95,6 @@ __DATA__
     </div>
   </body>
 </html>
-```
+</pre>
 
 
