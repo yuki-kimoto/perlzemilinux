@@ -1,0 +1,99 @@
+<h2>lsコマンド - ファイル一覧の表示</h2>
+
+lsコマンドはファイル一覧を表示するためのLinuxコマンドです。
+
+<pre>
+ls
+</pre>
+
+lsを実行したときの出力のサンプルです。ファイルとディレクトリの一覧が表示されます。
+
+<pre>
+convert_markdown.pl  giblog.conf  lib  public  README  serve.pl  templates
+</pre>
+
+<h3>ファイルの詳細を表示 「-l」オプション</h3>
+
+「-l」オプションを使用すると、ファイル一覧を詳細表示できます。
+
+<pre>
+ls -l
+</pre>
+
+「ls -l」を実行したときのファイル一覧の詳細表示です。
+
+<pre>
+-rw-r--r-- 1 kimoto kimoto 1116 Aug 15 08:28 convert_markdown.pl
+-rw-r--r-- 1 kimoto kimoto  162 Sep 11 08:42 giblog.conf
+drwxrwxr-x 3 kimoto kimoto 4096 Aug 10 15:01 lib
+drwxrwxr-x 7 kimoto kimoto 4096 Aug 10 15:04 public
+-rw-r--r-- 1 kimoto kimoto  227 Aug 10 15:01 README
+-rw-r--r-- 1 kimoto kimoto  219 Aug 10 15:01 serve.pl
+drwxrwxr-x 5 kimoto kimoto 4096 Aug 10 15:01 templates
+</pre>
+
+左側には、ファイルのパーミッションが表示されます。次に、ユーザー名、グループ名、ファイルサイズ、更新日付、ファイル名と続きます。
+
+<h3>ファイルサイズを単位をつけて表示する 「-h」オプション</h3>
+
+「-l」オプションと同時に「-h」オプションを使用すると、ファイルサイズに単位をつけることができます。大きなファイルサイズのときに確認するのに便利です。
+
+<pre>
+ls -l -h
+</pre>
+
+または
+
+</pre>
+ls -lh
+</pre>
+
+オプションは、複数一度に指定することもできます。
+
+ファイルサイズに単位をつけた場合の、出力結果です。
+
+<pre>
+-rw-r--r-- 1 kimoto kimoto 1.1K Aug 15 08:28 convert_markdown.pl
+-rw-r--r-- 1 kimoto kimoto  162 Sep 11 08:42 giblog.conf
+drwxrwxr-x 3 kimoto kimoto 4.0K Aug 10 15:01 lib
+drwxrwxr-x 7 kimoto kimoto 4.0K Aug 10 15:04 public
+-rw-r--r-- 1 kimoto kimoto  227 Aug 10 15:01 README
+-rw-r--r-- 1 kimoto kimoto  219 Aug 10 15:01 serve.pl
+drwxrwxr-x 5 kimoto kimoto 4.0K Aug 10 15:01 templates
+</pre>
+
+<h3>隠しファイルを表示 「-a」オプション</h3>
+
+「-a」オプションを使用すると、「.」で始まる隠しファイルを表示することができます。
+
+<pre>
+ls -a
+</pre>
+
+出力結果のサンプルです。
+
+<pre>
+.  ..  convert_markdown.pl  giblog.conf  .git  .gitignore  lib  public  README  serve.pl  templates
+</pre>
+
+「-l」オプションと一緒に使うこともできます。
+
+<pre>
+ls -la
+</pre>
+
+出力結果のサンプルです。
+
+<pre>
+drwxrwxr-x  6 kimoto kimoto 4096 Aug 14 17:51 .
+drwxrwxr-x 40 kimoto kimoto 4096 Nov  9 10:08 ..
+-rw-r--r--  1 kimoto kimoto 1116 Aug 15 08:28 convert_markdown.pl
+-rw-r--r--  1 kimoto kimoto  162 Sep 11 08:42 giblog.conf
+drwxrwxr-x  8 kimoto kimoto 4096 Oct 12 19:52 .git
+-rw-r--r--  1 kimoto kimoto    8 Aug 10 15:01 .gitignore
+drwxrwxr-x  3 kimoto kimoto 4096 Aug 10 15:01 lib
+drwxrwxr-x  7 kimoto kimoto 4096 Aug 10 15:04 public
+-rw-r--r--  1 kimoto kimoto  227 Aug 10 15:01 README
+-rw-r--r--  1 kimoto kimoto  219 Aug 10 15:01 serve.pl
+drwxrwxr-x  5 kimoto kimoto 4096 Aug 10 15:01 templates
+</pre>
