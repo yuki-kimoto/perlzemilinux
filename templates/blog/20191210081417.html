@@ -1,0 +1,59 @@
+<h2>rmコマンド - ファイルの削除</h2>
+
+rmコマンドを使用するとファイルを削除することができます。rmはremoveに由来しています。
+
+<pre>
+rm ファイル名
+</pre>
+
+rmコマンドを使ってfoo.txtというファイルを削除してみます。
+
+<pre>
+rm foo.txt
+</pre>
+
+<h3>ディレクトリとその中身をすべて削除する - rmコマンドの「-r」オプション</h3>
+
+ディレクトリとその中身をすべて削除するには、rmコマンドの「-r」オプションを使用します。「-r」はrecursive(再帰的)に由来しています。
+
+<pre>
+rm -r ディレクトリ名
+</pre>
+
+このコマンドは、ディレクトリとその中にあるファイルをすべて削除しますので気をつけて使いましょう。
+
+<h3>強制的にファイルを削除する - rmコマンドの「-f」オプション</h3>
+
+rmコマンドでファイルを削除しようとした場合は、ファイルを削除するか確認を求められる場合があります。
+
+そのような場合でも、確認をしないで消したい場合は、rmコマンドの「-f」オプションを使用します。「-f」はforce(強制的)に由来しています。
+
+<pre>
+rm -rf ディレクトリ名
+</pre>
+
+このコマンドは、ディレクトリとその中にあるファイルをすべて確認なしに、削除しますので気をつけて使いましょう。
+
+<h3>ヘルプを表示する --helpオプション</h3>
+
+ヘルプを表示するには「--help」オプションを使用します。
+
+<pre>
+rm --help
+</pre>
+
+ヘルプが表示されます。
+
+<pre>
+Usage: rm [OPTION]... FILE...
+Remove (unlink) the FILE(s).
+
+  -f, --force           ignore nonexistent files, never prompt
+  -i, --interactive     prompt before any removal
+      --no-preserve-root do not treat `/' specially (the default)
+      --preserve-root   fail to operate recursively on `/'
+  -r, -R, --recursive   remove directories and their contents recursively
+  -v, --verbose         explain what is being done
+      --help     display this help and exit
+      --version  output version information and exit
+</pre>
