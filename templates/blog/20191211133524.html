@@ -1,0 +1,46 @@
+<h2>mkdirコマンド - ディレクトリを作成する</h2>
+
+mkdirコマンドを使用するとディレクトリを作成することができます。mkdirは「make directory」が由来です。
+
+<pre>
+mkdir ディレクトリ名
+</pre>
+
+mkdirコマンドを使って、fooディレクトリを作成するサンプルです。
+
+<pre>
+mkdir foo
+</pre>
+
+<h3>複数階層のディレクトリを作成する - 「mkdir」の「-p」オプション</h3>
+
+複数階層のディレクトリを一度に作成するには、 「mkdir」の「-p」オプションを使用します。
+
+<pre>
+mkdir -p foo/bar
+</pre>
+
+「foo/bar」というディレクトリが作成されます。「foo」ディレクトリが存在しない場合は、自動的に「foo」ディレクトリが作成されます。
+
+<h3>ヘルプを表示する --helpオプション</h3>
+
+ヘルプを表示するには「--help」オプションを使用します。
+
+<pre>
+mkdir --help
+</pre>
+
+ヘルプが表示されます。
+
+<pre>
+Usage: mkdir [OPTION] DIRECTORY...
+Create the DIRECTORY(ies), if they do not already exist.
+
+Mandatory arguments to long options are mandatory for short options too.
+  -m, --mode=MODE   set permission mode (as in chmod), not rwxrwxrwx - umask
+  -p, --parents     no error if existing, make parent directories as needed
+  -v, --verbose     print a message for each created directory
+  -Z, --context=CONTEXT (SELinux) set security context to CONTEXT
+      --help     display this help and exit
+      --version  output version information and exit
+</pre>
