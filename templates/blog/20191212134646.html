@@ -1,0 +1,45 @@
+<h2>rmdir - ディレクトリを削除する</h2>
+
+rmdirコマンドを使用すると、ディレクトリを削除することができます。
+
+<pre>
+rmdir ディレクトリ名
+</pre>
+
+ディレクトリが空でない場合は、削除することができません。
+
+<h3>ディレクトリが空でない場合に、削除するには?</h3>
+
+rmdirコマンドは、ディレクトリの内容が空の場合のみ、削除することができます。
+
+ディレクトリが空でない場合に削除するには「rmコマンド」の「-r」オプションを使用します。
+
+rmコマンドの解説をご覧ください。
+
+<ul>
+  <li><a href="/blog/20191210081417.html">rmコマンド - ファイルを削除する</a></li>
+</ul>
+
+<h3>ヘルプを表示する --helpオプション</h3>
+
+ヘルプを表示するには「--help」オプションを使用します。
+
+<pre>
+rmdir --help
+</pre>
+
+ヘルプが表示されます。
+
+<pre>
+Usage: rmdir [OPTION]... DIRECTORY...
+Remove the DIRECTORY(ies), if they are empty.
+
+      --ignore-fail-on-non-empty
+                  ignore each failure that is solely because a directory
+                  is non-empty
+  -p, --parents   Remove DIRECTORY and its ancestors.  E.g., `rmdir -p a/b/c' is
+                  similar to `rmdir a/b/c a/b a'.
+  -v, --verbose   output a diagnostic for every directory processed
+      --help     display this help and exit
+      --version  output version information and exit
+</pre>
