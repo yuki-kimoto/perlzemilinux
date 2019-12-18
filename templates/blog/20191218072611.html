@@ -32,8 +32,35 @@ ls /home/kimoto/labo/foo
 
 カレントディレクトリ自体は「.」という特別なファイル名で表現されます。
 
+<pre>
+# カレントディレクトリのファイル名
+.
+</pre>
+
 以下のようにlsに「.」を与えて実行すると、カレントディレクトリのファイル一覧が表示されます。
 
 <pre>
 ls .
 </pre>
+
+<h3>カレントディレクトリの存在を確認する</h3>
+
+カレントディレクトリは、実際に隠しファイルとして、カレントディレクトリの内容として存在しています。
+
+<a href="/blog/20191126082723.html">lsコマンド</a>の「-a」オプションを使用して確認してみましょう。出力結果のサンプルです。
+
+<pre>
+drwxrwxr-x  6 kimoto kimoto 4096 Aug 14 17:51 .
+drwxrwxr-x 40 kimoto kimoto 4096 Nov  9 10:08 ..
+-rw-r--r--  1 kimoto kimoto 1116 Aug 15 08:28 convert_markdown.pl
+-rw-r--r--  1 kimoto kimoto  162 Sep 11 08:42 giblog.conf
+drwxrwxr-x  8 kimoto kimoto 4096 Oct 12 19:52 .git
+-rw-r--r--  1 kimoto kimoto    8 Aug 10 15:01 .gitignore
+drwxrwxr-x  3 kimoto kimoto 4096 Aug 10 15:01 lib
+drwxrwxr-x  7 kimoto kimoto 4096 Aug 10 15:04 public
+-rw-r--r--  1 kimoto kimoto  227 Aug 10 15:01 README
+-rw-r--r--  1 kimoto kimoto  219 Aug 10 15:01 serve.pl
+drwxrwxr-x  5 kimoto kimoto 4096 Aug 10 15:01 templates
+</pre>
+
+「.」が表示されていますね。
