@@ -1,0 +1,134 @@
+<h2>CentOS 7で、Let's encryptを使って、SSL証明書を取得する</h2>
+
+HTTPS対応するために、無料でSSL証明書を取得できるLet's enryptを利用するためのcertbotをインストールしましょう。
+
+<pre>
+sudo yum -y install epel-release
+sudo yum -y install certbot python-certbot-apache
+</pre>
+
+<h3>Let's encryptは証明書の取得にWebサーバーが必要</h3>
+
+Let's encryptは、HTTPS接続できるWebサーバーにアクセスできることを確認することによって、SSL証明書を発行します。
+
+ですので、HTTPSで待ち受けるWebサーバーが必要です。
+
+Webサーバーとして<a href="/blog/20200115175810.html">Aapcheのインストール</a>を行いましょう。
+
+HTTPS接続のためには、mod_sslが必要ですので、<a href="/blog/20200112182708.html">mod_ssl</a>のインストールを行いましょう。
+
+よくあるサーバーの構成として、リバースプロキシで待ち受ける場合を考えてみましょう。
+
+「/etc/httpd/conf.d/vhost.conf」の中に以下のような設定をします。HTTPSのデフォルトポート443で「www.mydomain.example」を受けて、後ろにあるアプリケーションサーバーの10000番ポートで受けます。
+
+<pre>
+  <VirtualHost *:443>
+    ServerName www.mydomain.example
+    
+    <Proxy *>
+      Order deny,allow
+      Allow from all
+    </Proxy>
+
+    ProxyRequests Off
+    ProxyPreserveHost On
+    ProxyPass / http://localhost:10000/ keepalive=On
+    ProxyPassReverse / http://localhost:10000/
+    RequestHeader set X-Forwarded-Proto "https"
+  </VirtualHost>
+</pre>
+
+SSL証明書の読み込みの設定は、存在しないので、この時点では行いません。
+
+設定後<a href="/blog/20200115175810.html">Apacheを再起動</a>して「https://www.mydomain.example」で、接続できることを確認してください。再起動の前には、<a href="/blog/20200114175810.html">Apacheの設定ファイルが正しいことをチェック</a>しておくと安心でしょう。
+
+<h3>SSL証明書を取得する</h3>
+
+certbotを使って、SSL証明書を取得しましょう。Apache用の設定ファイルも自動で、追加してくれます。
+
+<pre>
+sudo certbot run --apache -d www.mydomain.example
+</pre>
+
+最初にメールアドレスを聞かれます。メールアドレスを入力して、Enter。
+
+<pre>
+Saving debug log to /var/log/letsencrypt/letsencrypt.log
+Plugins selected: Authenticator apache, Installer apache
+Enter email address (used for urgent renewal and security notices) (Enter 'c' to
+cancel):
+</pre>
+
+次に同意をするか聞かれるので「A」を押してEnter。
+
+<pre>
+Starting new HTTPS connection (1): acme-v02.api.letsencrypt.org
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Please read the Terms of Service at
+https://letsencrypt.org/documents/LE-SA-v1.2-November-15-2017.pdf. You must
+agree in order to register with the ACME server at
+https://acme-v02.api.letsencrypt.org/directory
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+(A)gree/(C)ancel:
+</pre>
+
+メールアドレスをElectronic Frontier Foundationと共有したいか聞かれるので「Y」か「N」を押してEnter。
+
+<pre>
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Would you be willing to share your email address with the Electronic Frontier
+Foundation, a founding partner of the Let's Encrypt project and the non-profit
+organization that develops Certbot? We'd like to send you email about our work
+encrypting the web, EFF news, campaigns, and ways to support digital freedom.
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+(Y)es/(N)o:
+</pre>
+
+HTTPをHTTPSにリダイレクトするか聞かれるので、「1」か「2」の好きな方を選んでEnter。
+
+<pre>
+Please choose whether or not to redirect HTTP traffic to HTTPS, removing HTTP access.
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+1: No redirect - Make no further changes to the webserver configuration.
+2: Redirect - Make all requests redirect to secure HTTPS access. Choose this for
+new sites, or if you're confident your site works on HTTPS. You can undo this
+change by editing your web server's configuration.
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Select the appropriate number [1-2] then [enter] (press 'c' to cancel):
+</pre>
+
+最後に重要なお知らせが表示されて、終了します。
+
+<pre>
+IMPORTANT NOTES:
+ - Congratulations! Your certificate and chain have been saved at:
+   /etc/letsencrypt/live/quote-app.dev-winckler-yokohama.com/fullchain.pem
+   Your key file has been saved at:
+   /etc/letsencrypt/live/quote-app.dev-winckler-yokohama.com/privkey.pem
+   Your cert will expire on 2020-04-16. To obtain a new or tweaked
+   version of this certificate in the future, simply run certbot again
+   with the "certonly" option. To non-interactively renew *all* of
+   your certificates, run "certbot renew"
+ - Your account credentials have been saved in your Certbot
+   configuration directory at /etc/letsencrypt. You should make a
+   secure backup of this folder now. This configuration directory will
+   also contain certificates and private keys obtained by Certbot so
+   making regular backups of this folder is ideal.
+ - If you like Certbot, please consider supporting our work by:
+
+   Donating to ISRG / Let's Encrypt:   https://letsencrypt.org/donate
+   Donating to EFF:                    https://eff.org/donate-le
+</pre>
+
+SSL証明書は以下のディレクトリの中に格納されます。
+
+<pre>
+/etc/letsencrypt/live
+</pre>
+
+見てみると、ドメインごとのディレクトリに分かれて格納されています。
+
+<pre>
+sudo ls /etc/letsencrypt/live
+</pre>
