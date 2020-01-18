@@ -1,0 +1,44 @@
+<h2>CentOS7でsudoを使って一般ユーザーでroot権限コマンドを実行する方法</h2>
+
+CentOS7でsudoを使って一般ユーザーでroot権限コマンドを実行する方法を解説します。
+
+Webのドキュメントを見ていると、sudoを使っている例が多いですよね。最初は、なんだこりゃと思います。
+
+<pre>
+sudo コマンド
+</pre>
+
+意味としては、root権限でしか実行できないコマンドを一般ユーザーで実行しているのだと解釈しましょう。
+
+一般ユーザーがrootにスイッチして、コマンドを実行しているという感覚です。
+
+<h3>CentOS 7で、一般ユーザーをsudoユーザーに追加する</h3>
+
+CentOS 7では、sudoは、最初から使えますが、一般ユーザーがroot権限でコマンドを実行できるようにするためには、sudoユーザーに追加する作業が必要です。
+
+rootユーザーでまずログインします。
+
+<pre>
+su -
+</pre>
+
+次にvisudoコマンドを使います。visudoコマンドは、sudoの設定ファイルを開くコマンドです。<a href="/blog/20190401171737.html">viエディタ</a>が立ち上がります。
+
+<pre>
+visudo
+</pre>
+
+以下の行のコメントアウトをはずしましょう。wheelグループのユーザーは、すべてのコマンドを実行できるという意味です。
+
+<pre>
+## Allows people in group wheel to run all commands
+# %wheel  ALL=(ALL)       ALL
+%wheel  ALL=(ALL)       ALL
+</pre>
+
+あなたのユーザーを、usermodコマンドを使って、wheelグループに追加します。
+
+<pre>
+usermod -aG wheel kimoto
+</pre>
+
