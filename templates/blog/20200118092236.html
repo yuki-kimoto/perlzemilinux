@@ -41,3 +41,33 @@ visudo
 <pre>
 usermod -aG wheel kimoto
 </pre>
+
+一度ログアウトして、もう一度、あなたのユーザーでログインしましょう。
+
+sudoコマンドでlsを実行してみましょう。lsは、通常ユーザーでもできますが、ここでは確認のために使用します。
+
+<pre>
+sudo ls
+</pre>
+
+パスワードを求められます。自分のパスワードを入力します。rootのパスワードではないです。
+
+ファイルの一覧が表示されれば成功です。
+
+もう一度実行してみましょう。今度は、パスワードを求められませんね。
+
+<pre>
+sudo ls
+</pre>
+
+<h3>sudoで初回のパスワードを求められないようにするには?</h3>
+
+初回からパスワードを求められないようにするには? visudoでsudoの設定ファイルを変更するときに、以下の設定のコメントアウトをはずします。
+
+<pre>
+## Allows people in group wheel to run all commands
+# %wheel        ALL=(ALL)       ALL
+
+## Same thing without a password
+%wheel  ALL=(ALL)       NOPASSWD: ALL
+</pre>
