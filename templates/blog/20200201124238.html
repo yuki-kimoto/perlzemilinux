@@ -1,0 +1,21 @@
+<h2>diffコマンド - ファイルの差分を確認する</h2>
+
+diffコマンドを使用すると、ファイルの差分を確認できます。
+
+<pre>
+git diff ファイル1 ファイル2
+</pre>
+
+diffの出力結果のサンプルです。
+
+<pre>
+  ServerName system.online-fudousan.jp
+
+-  <Directory /var/www>
+-    Options +ExecCGI
+-  </Directory>
+-
+   RewriteEngine On
+   RewriteCond %{HTTP_HOST} !^\Qsystem.online-fudousan.jp\E
+   RewriteRule (.+) https://system.online-fudousan.jp$1 [R=301,L]
+</pre>
