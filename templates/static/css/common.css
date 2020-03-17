@@ -55,10 +55,10 @@
   
   /* content */
   .content {
-    float:right;
+    float:left;
     width:calc(100% - 270px - 20px);
     padding-top:5px;
-    padding-right:30px;
+    padding-left:30px;
   }
   
   /* entry */
@@ -73,10 +73,10 @@
   
   /* side */
   .side {
-    float:left;
+    float:right;
     width:270px;
     padding-top:12px;
-    padding-left:30px;
+    padding-right:30px;
   }
   
   /* tags */
