@@ -1,0 +1,71 @@
+<div class="bread">
+  <ul itemscope itemtype="http://schema.org/BreadcrumbList">
+    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+      <a itemprop="item" href="/">
+        <span itemprop="name">Linux</span>
+      </a>
+      <meta itemprop="position" content="1" />
+    </li>
+    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+      <a itemprop="item" href="/blog/20200211081227.html">
+        <span itemprop="name">Linuxコマンド</span>
+      </a>
+      <meta itemprop="position" content="2" />
+    </li>
+    <li>
+      here
+    </li>
+  </ul>
+</div>
+
+<h2>groupaddコマンド - グループを追加する</h2>
+
+<b>groupaddコマンド</b>でグループを追加できます。<a href="/blog/20200118092236.html">sudo</a>でroot権限で実行します。
+
+<pre>
+sudo groupadd グループ名
+</pre>
+
+以下は、アプリケーション用のグループ「myapp」を作成するサンプルです。
+
+<pre>
+sudo groupadd myapp
+</pre>
+
+グループの一覧を確認するには「/etc/group」ファイルを<a href="/blog/20200113083613.html">cat</a>コマンドで出力します。
+
+<pre>
+sudo cat /etc/group
+</pre>
+
+myappが存在するのを確認しましょう。
+
+<pre>
+myapp:x:1003:
+</pre>
+
+<h3>なんのためにグループが必要になるの?</h3>
+
+グループの作成には複数の目的がありますが、システム開発において必要になる場合を書きます。
+
+<h4>あるディレクトリに複数のユーザーがファイルを保存する場合</h4>
+
+データを保存するためのディレクトリに複数のユーザーがファイルを保存する場合には、グループを作成して、そのグループがファイルを読み書きできるようにする必要があります。
+
+すべてのユーザーが読み書きできるようにするよりも、ユーザーを限定して、特定のグループに所属するユーザーだけが、読み書きできた方が安全です。
+
+kimotoとtanakaとyamadaが、自分のユーザーで開発しているとします。この場合は、データディレクトリへのファイルの書き込みは、それぞれのユーザーのグループになります。
+
+tanakaが書き込んだ場合は「tanaka:tanaka」になります。そうするとkimotoは、読み書きできません。
+
+これを回避する方法は別のところで解説しますが、このような場合は、まずアプリケーション用のグループを作成する必要があります。
+
+<h3>グループに対するその他の操作</h3>
+
+グループの一覧を表示する方法は以下の記事で解説しています。
+
+<a href="/blog/20200531093211.html">グループの一覧を表示する 「/etc/group」ファイル</a>
+
+グループを削除する方法は、以下の記事で解説しています。
+
+<a href="/blog/20200530093211.html">groupdelコマンド - グループを削除する</a>

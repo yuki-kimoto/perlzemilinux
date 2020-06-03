@@ -1,0 +1,43 @@
+<div class="bread">
+  <ul itemscope itemtype="http://schema.org/BreadcrumbList">
+    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+      <a itemprop="item" href="/">
+        <span itemprop="name">Linux</span>
+      </a>
+      <meta itemprop="position" content="1" />
+    </li>
+    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+      <a itemprop="item" href="/blog/20200211081227.html">
+        <span itemprop="name">Linuxコマンド</span>
+      </a>
+      <meta itemprop="position" content="2" />
+    </li>
+    <li>
+      here
+    </li>
+  </ul>
+</div>
+
+<h2>groupdelコマンド - グループを削除する</h2>
+
+<b>groupdelコマンド</b>でグループを削除できます。<a href="/blog/20200118092236.html">sudo</a>でroot権限で実行します。
+
+<pre>
+sudo groupdel グループ名
+</pre>
+
+以下は、アプリケーション用のグループ「myapp」を削除するサンプルです。
+
+<pre>
+sudo groupdel myapp
+</pre>
+
+<h3>グループに対するその他の操作</h3>
+
+グループの一覧を表示する方法は以下の記事で解説しています。
+
+<a href="/blog/20200531093211.html">グループの一覧を表示する 「/etc/group」ファイル</a>
+
+グループを追加する方法は、以下の記事で解説しています。
+
+<a href="/blog/20200601093211.html">groupaddコマンド - グループを追加する</a>
