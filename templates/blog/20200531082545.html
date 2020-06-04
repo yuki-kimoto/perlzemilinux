@@ -1,0 +1,87 @@
+<h2>duコマンド - ディレクトリ容量を確認する</h2>
+
+duコマンドでディレクトリ容量を確認することができます。ディレクトリ名が指定されない場合は、カレントディレクトリが対象になります。
+
+<pre>
+du ディレクトリ名
+</pre>
+
+duで、ディレクトリ容量を確認するサンプルです。
+
+<pre>
+
+</pre>
+
+出力結果のサンプルです。
+
+<pre>
+468     templates/blog
+8       templates/static/images
+12      templates/static/css
+4       templates/static/blog
+192     templates/static/js/google-code-prettify
+292     templates/static/js
+324     templates/static
+28      templates/common
+828     templates
+</pre>
+
+ディレクトリとサブディレクトリごとに容量がキロバイト単位で表示されます。
+
+<h3>単位つけてわかりやすく表示するには</h3>
+
+duコマンドの単位をわかりやすく表示するには「-h」オプションを使用します。
+
+<pre>
+du -h
+</pre>
+
+出力結果には、単位がついています。
+
+<pre>
+Filesystem      Size  Used Avail Use% Mounted on
+udev            3.9G     0  3.9G   0% /dev
+tmpfs           794M  736K  793M   1% /run
+/dev/sda1        29G  4.1G   25G  15% /
+tmpfs           3.9G  8.0K  3.9G   1% /dev/shm
+tmpfs           5.0M     0  5.0M   0% /run/lock
+tmpfs           3.9G     0  3.9G   0% /sys/fs/cgroup
+/dev/sda15      105M  3.6M  101M   4% /boot/efi
+/dev/sdc1      1007G   77M  956G   1% /datadrive
+/dev/sdb1        16G   45M   15G   1% /mnt
+tmpfs           794M     0  794M   0% /run/user/1001
+</pre>
+
+<h3>ディレクトリの使用状況を上位から並べる</h3>
+
+ディレクトリの使用状況上位から順番に表示するにはduコマンドにsortとheadを組み合わせます。容量が多いディレクトリを発見するのに便利です。
+
+<pre>
+du templates | sort -rn | head -20
+</pre>
+
+出力結果が、ディレクトリ容量の多い順で出力されます。
+
+<pre>
+824     templates
+464     templates/blog
+324     templates/static
+292     templates/static/js
+192     templates/static/js/google-code-prettify
+28      templates/common
+12      templates/static/css
+8       templates/static/images
+4       templates/static/blog
+<pre>
+
+duに「/」を指定して、しばらく待っておくと、システム全体で容量を消費しているディレクトリがわかるので、便利です。
+
+<h3>ディスクの容量を確認するには?</h3>
+
+ディスクの容量を確認するにはdfコマンドを使用します。
+
+duコマンドはディレクトリ容量確認のコマンドで、ディスク容量の確認はdfコマンドを使うので、注意してください。
+
+<ul>
+  <li><a href="/blog/20200601093211.html">dfコマンド - ディスク容量を確認する</a></li>
+</ul>

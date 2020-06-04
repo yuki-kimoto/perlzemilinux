@@ -1,0 +1,62 @@
+<h2>dfコマンド - ディスク容量を確認する</h2>
+
+dfコマンドでディスク容量を確認することができます。
+
+<pre>
+df
+</pre>
+
+出力結果のサンプルです。ディスクごとに容量が1Kバイト単位で表示されます。
+
+
+<pre>
+Filesystem      1K-blocks    Used  Available Use% Mounted on
+udev              4044556       0    4044556   0% /dev
+tmpfs              812572     736     811836   1% /run
+/dev/sda1        30309264 4263080   26029800  15% /
+tmpfs             4062840       8    4062832   1% /dev/shm
+tmpfs                5120       0       5120   0% /run/lock
+tmpfs             4062840       0    4062840   0% /sys/fs/cgroup
+/dev/sda15         106858    3668     103190   4% /boot/efi
+/dev/sdc1      1055838644   77852 1002057420   1% /datadrive
+/dev/sdb1        16447292   45084   15547020   1% /mnt
+tmpfs              812568       0     812568   0% /run/user/1001
+</pre>
+
+「/dev/sda1」「/dev/sda15」「/dev/sdc1」「/dev/sdb1」が、パーティションで区切られた論理的なディスクです。この上にファイルシステムがマウントされています。
+
+dfで表示されるディスク容量は、物理ディスクのものではなく、物理ディスクの上に設定されたパーティション(論理ディスク)が対象です。
+
+<h3>単位つけてわかりやすく表示するには</h3>
+
+dfコマンドの単位をわかりやすく表示するには「-h」オプションを使用します。
+
+<pre>
+df -h
+</pre>
+
+出力結果には、単位がついています。
+
+<pre>
+Filesystem      Size  Used Avail Use% Mounted on
+udev            3.9G     0  3.9G   0% /dev
+tmpfs           794M  736K  793M   1% /run
+/dev/sda1        29G  4.1G   25G  15% /
+tmpfs           3.9G  8.0K  3.9G   1% /dev/shm
+tmpfs           5.0M     0  5.0M   0% /run/lock
+tmpfs           3.9G     0  3.9G   0% /sys/fs/cgroup
+/dev/sda15      105M  3.6M  101M   4% /boot/efi
+/dev/sdc1      1007G   77M  956G   1% /datadrive
+/dev/sdb1        16G   45M   15G   1% /mnt
+tmpfs           794M     0  794M   0% /run/user/1001
+</pre>
+
+<h3>ディレクトリの容量を確認するには?</h3>
+
+ディレクトリの容量を確認するにはduコマンドを使用します。
+
+dfコマンドはディスク容量確認のコマンドで、ディレクトリ容量の確認はduコマンドを使うので、注意してください。
+
+<ul>
+  <li><a href="/blog/20200531082545.html">duコマンド - ディレクトリ容量を確認する</a></li>
+</ul>
