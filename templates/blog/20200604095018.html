@@ -1,0 +1,45 @@
+<div class="bread">
+  <ul itemscope itemtype="http://schema.org/BreadcrumbList">
+    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+      <a itemprop="item" href="/">
+        <span itemprop="name">Linux</span>
+      </a>
+      <meta itemprop="position" content="1" />
+    </li>
+    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+      <a itemprop="item" href="/blog/20200211081227.html">
+        <span itemprop="name">Linuxコマンド</span>
+      </a>
+      <meta itemprop="position" content="2" />
+    </li>
+    <li>
+      here
+    </li>
+  </ul>
+</div>
+
+<h2>chgrpコマンド - 所有者グループを変更する</h2>
+
+chgrpコマンドを使うと、所有者グループを変更することができます。
+
+<pre>
+chgrp 所有者グループ ファイル名
+</pre>
+
+chgrpコマンドで、所有者グループを「myapp」に変更するサンプルです。
+
+<pre>
+chgrp myapp file
+</pre>
+
+所有者グループについてはパーミッションの記事を参考にしてください。
+
+<a href="/blog/20200526082545.html">パーミッションとは</a>
+
+<h3>再帰的に所有者グループを変更する</h3>
+
+再帰的に所有者グループを変更するには「-R」オプションを使います。
+
+<pre>
+chgrp -R myapp dir
+</pre>
