@@ -16,8 +16,6 @@
   
   /* header */
   .header {
-    position:fixed;
-    width:100%;
     margin:0 auto;
     background:#fff;
     border-bottom:1px solid #D9D9D0;
