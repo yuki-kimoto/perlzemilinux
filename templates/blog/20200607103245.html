@@ -1,0 +1,43 @@
+<div class="bread">
+  <ul itemscope itemtype="http://schema.org/BreadcrumbList">
+    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+      <a itemprop="item" href="/">
+        <span itemprop="name">Linux</span>
+      </a>
+      <meta itemprop="position" content="1" />
+    </li>
+    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+      <a itemprop="item" href="/blog/20200211081227.html">
+        <span itemprop="name">Linuxコマンド</span>
+      </a>
+      <meta itemprop="position" content="2" />
+    </li>
+    <li>
+      here
+    </li>
+  </ul>
+</div>
+
+<h2>gunzipコマンド - GZIP形式のファイルの解凍</h2>
+
+gunzipコマンドで、ファイルを<a href="http://e-words.jp/w/GZIP.html">GZIP形式</a>のファイルを解凍できます。
+
+<pre>
+gunzip ファイル名
+</pre>
+
+GZIP形式のファイル名の拡張子は一般的に「.gz」です。
+
+gunzipでファイルを解凍するサンプルです。
+
+<pre>
+gunzip foo.gz
+</pre>
+
+GZIP形式のファイルを圧縮するには<a href="/blog/20200608103245.html">gzip</a>コマンドを使用します。
+
+<a href="/blog/20190129171737.html">tar</a>コマンドでも、GZIP形式で解凍ができるので、tarコマンドのオプションを使って、ディレクトリをアーカイブの展開・解凍するのが、さらに一般的です。
+
+<pre>
+tar xfzv project.tar.gz
+</pre>
