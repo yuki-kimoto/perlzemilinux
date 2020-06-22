@@ -1,0 +1,55 @@
+<div class="bread">
+  <ul itemscope itemtype="http://schema.org/BreadcrumbList">
+    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+      <a itemprop="item" href="/">
+        <span itemprop="name">Linux</span>
+      </a>
+      <meta itemprop="position" content="1" />
+    </li>
+    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+      <a itemprop="item" href="/blog/20200211081227.html">
+        <span itemprop="name">Linuxコマンド</span>
+      </a>
+      <meta itemprop="position" content="2" />
+    </li>
+    <li>
+      here
+    </li>
+  </ul>
+</div>
+
+<h2>digコマンド - ドメインd名からIPアドレスを調べる。DNSサーバー情報問合わせ。</h2>
+
+digコマンドを使うと、DNSサーバー情報問合わせを行うことができます。最もよく使うのは、ドメイン名からIPアドレスの情報を取得したい場合です。
+
+<pre>
+dig ドメイン名
+</pre>
+
+digを使ってドメイン名を指定してIPアドレスの情報を取得するサンプルです。
+
+<pre>
+dig linux.perlzemi.com
+</pre>
+
+digの出力結果です。IPアドレスがわかります。
+
+<pre>
+; <<>> DiG 9.3.6-P1-RedHat-9.3.6-25.P1.el5_11.12 <<>> linux.perlzemi.com
+;; global options:  printcmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 50874
+;; flags: qr rd ra; QUERY: 1, ANSWER: 2, AUTHORITY: 0, ADDITIONAL: 0
+
+;; QUESTION SECTION:
+;linux.perlzemi.com.            IN      A
+
+;; ANSWER SECTION:
+linux.perlzemi.com.     3600    IN      CNAME   sakurastd.perlzemi.com.
+sakurastd.perlzemi.com. 3600    IN      A       210.224.185.82
+
+;; Query time: 5 msec
+;; SERVER: 210.188.224.10#53(210.188.224.10)
+;; WHEN: Mon Jun 22 14:17:22 2020
+;; MSG SIZE  rcvd: 76
+</pre>
