@@ -35,7 +35,7 @@ ssh 接続先
 sshで接続するサンプルです。
 
 <pre>
-ssh 10.54.14.15@kimoto
+ssh kimoto@59.105.185.193
 </pre>
 
 <h4>ポート番号を指定する</h4>
@@ -43,7 +43,7 @@ ssh 10.54.14.15@kimoto
 sshコマンドで、接続先のポート番号を指定する場合は「-p」オプションを使用します。
 
 <pre>
-ssh -p 55555 10.54.14.15@kimoto
+ssh -p 55555 kimoto@59.105.185.193
 </pre>
 
 <h4>sshコマンドが使うデフォルトの秘密鍵</h4>
@@ -59,8 +59,8 @@ sshコマンドが使うデフォルトの秘密鍵は以下です。
 秘密鍵を「-i」オプションで秘密鍵ファイルを指定することができます。相対パスの場合は「~/.ssh」からのパスになります。
 
 <pre>
-ssh -i id_rsa_example 10.54.14.15@kimoto
-ssh -i /path/id_rsa_example 10.54.14.15@kimoto
+ssh -i id_rsa_example kimoto@59.105.185.193
+ssh -i /path/id_rsa_example kimoto@59.105.185.193
 </pre>
 
 <h4>特定のドメインへのSSH接続する場合に秘密鍵ファイルを指定してを使う設定</h4>
