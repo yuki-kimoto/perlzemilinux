@@ -59,6 +59,27 @@ sub run {
     # Add meta description
     $api->add_meta_description($data);
 
+    # Twitter card
+    {
+      my $meta = $data->{meta};
+      
+      my $site_url = $config->{site_url};
+      my $title = $data->{title} || '';
+      my $description = $data->{description} || '';
+      
+      my $twitter_card = <<"EOS";
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="\@perlzemi" />
+<meta name="twitter:title" content="$title" />
+<meta name="twitter:description" content="$description" />
+<meta name="twitter:image" content="$site_url/images/twitter_card_large_kaeru.png" />
+EOS
+      
+      $meta .= "\n$twitter_card\n";
+      
+      $data->{meta} = $meta;
+    }
+
     # Build entry html
     $api->build_entry($data);
     
