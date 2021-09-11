@@ -14,16 +14,60 @@
     color:#0000EE;
   }
   
-  /* header */
+  /* ヘッダ */
   .header {
-    margin:0 auto;
-    background:#fff;
-    border-bottom:1px solid #D9D9D0;
-    padding:10px 0 10px 0;
-    display:flex;
-    flex-wrap:wrap;
+    width:100%;
+    border-bottom:2px solid #cccccc;
+    margin-bottom:5px;
+    background:white;
   }
-  
+  .header_main {
+    width:100%;
+    max-width:1030px;
+    display:flex;
+    margin:0 auto;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: “Calibri”,”メイリオ”,Meiryo,”ヒラギノ角ゴ Pro W3″,Hiragino Kaku Gothic Pro,”ＭＳ Ｐゴシック”,sans-serif; 
+  }
+  h1 {
+    font-family: “Calibri”,”メイリオ”,Meiryo,”ヒラギノ角ゴ Pro W3″,Hiragino Kaku Gothic Pro,”ＭＳ Ｐゴシック”,sans-serif; 
+    padding: 5px 15px 9px 15px;
+    color:#333;
+    font-family: "times new roman", "geogia", serif;
+    float:left;
+    width:75%;
+    display:inline-block;
+    padding:5px 10px 7px 10px;
+  }
+  h1 a, h1 a:visited {
+    color:#333;
+    text-decoration:underline;
+    font-weight:bold;
+    letter-spacing:1px;
+    font-size:20px;
+    text-decoration:none;
+  }
+  h1 img {
+    width:40px;
+    vertical-align:-12px;
+    margin-right:10px;
+  }
+  .header_right {
+    width:25%;
+    text-align:right;
+  }
+  .header_right a,.header_right a:visited {
+    display:inline-block;
+    background:#FF4DA0;
+    color:white;
+    text-decoration:none;
+    padding:15px 25px 10px 25px;
+    text-align:center;
+    font-weight:bold;
+    height:100%;
+  }
+    
   .footer {
     width:100%;
     margin:0 auto;
@@ -56,7 +100,7 @@
   }
   
   .inside {
-    max-width:1080px;
+    max-width:1030px;
     width:calc(100% - 30px);
     margin:0 auto;
   }
@@ -140,34 +184,51 @@
     line-height:1.5;
   }
   
-  /* side */
+  /* サイドバー */
   .side {
     float:right;
     width:320px;
     padding-top:12px;
-    padding-right:30px;
   }
-  
-  /* tags */
-  h1 {
-    max-width:1020px;
-    width:100%;
-    font-size:26px;
-    padding:9px 10px 0 78px;
-    background:url(/images/linux-server-admin-logo.png) no-repeat 30px 3px;
-    background-size:43px;
-    height:100%;
-    width:50%;
+  .side_list {
   }
-  h1 a, h1 a:visited {
+  .side_list_title {
+    background:#44546A;
     color:white;
-    text-decoration:none;
-    color:#333;
+    font-weight:bold;
+    padding: 11px 0px 9px 0px;
+    text-align:center;
+    border:1px solid #0070C0;
+    border-bottom:none;
   }
-  .header_description {
-    width:50%;
+  .side_list_body {
+    text-align:center;
+    letter-spacing:1px;    
+    font-weight:bold;
+    line-height:1.5;
+    font-size:16px;
   }
 
+  .side_list_image img {
+    width:200px;
+  }
+  .side_list ul {
+    margin-bottom:30px;
+  }
+  .side_list li {
+    list-style:none;
+    background:white;
+    border:1px solid #D0D0DA;
+    border-bottom:none;
+    padding:12px 0px 10px 15px;
+  }
+  .side_list li:last-child {
+    border-bottom:1px solid #D0D0DA;
+  }
+  .side_list li:first-child {
+    border-top:none;
+  }
+  
   h2 {
     font-size:28px;
     margin:7px 0 12px 0;
@@ -247,33 +308,6 @@
   .before-days {
     text-align:center;
   }
-  .side_list {
-  }
-  .side_list_title {
-    background:#44546A;
-    color:white;
-    font-weight:bold;
-    padding: 11px 0px 9px 0px;
-    text-align:center;
-    border:1px solid #0070C0;
-    border-bottom:none;
-  }
-  .side_list ul {
-    margin-bottom:30px;
-  }
-  .side_list li {
-    list-style:none;
-    background:white;
-    border:1px solid #D0D0DA;
-    border-bottom:none;
-    padding:12px 0px 10px 15px;
-  }
-  .side_list li:last-child {
-    border-bottom:1px solid #D0D0DA;
-  }
-  .side_list li:first-child {
-    border-top:none;
-  }
 
   .to_top {
     display:flex;
@@ -298,6 +332,28 @@
     display:inline-block;
     list-style-type:none;
   }
+
+  .perlclub_register {
+    width:calc(100% - 30%);
+    max-width:500px;
+    margin:50px auto;
+  }
+  .perlclub_register a {
+    line-height:1.9;
+    text-align:center;
+    font-weight:bold;
+    font-size:19px;
+    display:block;
+    padding:33px 30px;
+    background:#FF4DA0;
+    text-decoration:none;
+    border-radius:5px;
+    color:white;
+  }
+  .perlclub_register a:hover {
+    opacity:0.8;
+  }
+  
 
 /* Tablet and Smart phone */
 @media only screen and (max-width:960px) {
@@ -343,5 +399,21 @@
   .header_description {
     text-align:center;
     width:100%;
+  }
+
+  /* サイドバー */
+  .side {
+    margin:0;
+    padding:0;
+    width:100%;
+    height:auto;
+    overflow:visible;
+  }
+  .side_list li {
+    border-left:none;
+    border-right:none;
+  }
+  .side_list li:last-child {
+    border-bottom:none;
   }
 }
