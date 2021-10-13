@@ -1,9 +1,0 @@
-<h2>コミットログの出力でコミットの出力個数を指定する / Gitメモ</h2>
-
-
-
-　<strong>git log</strong>コマンドで<strong>-n</strong>オプションを使って、出力個数を指定することができます。
-
-<pre>
-git log -n 3
-</pre>

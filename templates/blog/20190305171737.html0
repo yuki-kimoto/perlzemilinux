@@ -1,9 +1,0 @@
-<h2>Gitのリポジトリの説明(Description)を記述する / Git</h2>
-
-
-
-　gitweb.cgiやGitweb Liteを使っていると、プロジェクト一覧のページの説明の部分が「Unnamed repository; edit this file to name it for gitweb」となっています。これを記述するには<b>.git</b>リポジトリの下に<b>description</b>というファイルを配置して記述します。
-
-<pre>
-.git/description
-</pre>

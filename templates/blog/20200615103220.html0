@@ -1,9 +1,0 @@
-<h2>bash - Linuxのデフォルトのシェル</h2>
-
-<b>bash</b>はLinuxのデフォルトのシェルです。コマンドを実行することができます。
-
-<ul>
-  <li><a href="/blog/20200309152441.html">bash入門</a></li>
-  <li><a href="/blog/20200616103220.html">.bashrc - bashを起動・ログインしたときに実行される初期設定ファイル</a></li>
-  <li><a href="/blog/20200617103220.html">bashの環境変数の設定</a></li>
-</ul>

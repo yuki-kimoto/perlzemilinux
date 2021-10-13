@@ -1,9 +1,0 @@
-<h2>リモートリポジトリのURLを変更する git remote set-url / Git</h2>
-
-
-
-　<strong>Git</strong>でリモートリポジトリのURLを変更するには<strong>git remote set-url</strong>コマンドを利用します。
-
-<pre>
-git remote set-url origin manager@192.168.1.201:~/repository/git/httpd_conf.git
-</pre>
