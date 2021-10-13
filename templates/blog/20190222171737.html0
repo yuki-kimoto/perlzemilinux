@@ -1,0 +1,337 @@
+<h2>Gitの公開リポジトリと個人リポジトリの更新と公開のやり方</h2>
+
+
+
+　僕は開発では、バージョン管理システムとしてgitを使っているのですが、どうやってうまく使うのかが、今までよくわからなかったのが最近わかるようになってきました。Githubを使う分には、ぜんぜん問題がなかったのですが、社内で開発サーバーを自分で作って、複数人で開発を行うときの手順がわからなかったのが、最近わかるようになってきました。　 
+
+<h3>公開リポジトリと個人リポジトリ</h3>
+
+　gitでは公開リポジトリと呼ばれるものと、個人リポジトリと呼ばれるものを明確に区別する必要があります。そしてAさんの公開リポジトリとBさんの公開リポジトリ、Aさんの個人リポジトリとBさんの個人リポジトリはすべて異なるものだということを理解する必要があります。
+
+<pre>
+<h3> 全部異なる!</h3>
+Aさんの公開リポジトリ
+Bさんの公開リポジトリ
+Aさんの個人リポジトリ
+Bさんの個人リポジトリ
+</pre>
+
+　(gitには--shareオプションと呼ばれるリポジトリを共有化する仕組みが備わっています。これはsubversionに似たものとなります。でもgitを使うからには、--shareは使わないで、分散リポジトリの利点を生かすのがよいと僕は考えます。)
+
+<h3>Aさんができる操作</h3>
+
+<h4>自分のリポジトリに対して</h4>
+
+　Aさんは、自分の個人リポジトリに変更を加えることができます。これは実質的な作業としては、ローカルな環境でのソースコードの変更をして、自分の個人リポジトリにコミットを行うことです。
+
+　その後Aさんは自分の公開リポジトリに、個人リポジトリの変更情報を、反映させます。この操作をpushといいます。
+
+<pre>
+個人リポジトリを更新(commit) -> 公開リポジトリに反映(push)
+</pre>
+
+　公開リポジトリにpushを行うと、Bさんは変更した情報を取得することが可能になります。自分以外の人に公開されているので、公開リポジトリと呼ばれています。
+
+　公開リポジトリの作成には「git clone」コマンドの--bareオプションを使用しします。作成するリポジトリの拡張子に.gitとつけます。具体的な作成方法については、後に解説します。
+
+<h4>Bさんのリポジトリに対して</h4>
+
+　AさんはBさんの個人リポジトリに対しても公開リポジトリに対して、変更を加えることはできません。直接変更をくわえることができるのは自分の個人リポジトリに対してだけです。
+
+　AさんはBさんの公開リポジトリから、自分の個人リポジトリに変更された情報をもらうことができます。この操作をpullと呼びます。
+
+<pre>
+Bさんの公開リポジトリ -> Aさんの個人リポジトリに反映(pull)
+</pre>
+
+　AさんがBさんからもらった情報を、自分の公開リポジトリに反映させるには、自分の公開リポジトリに対して、pushする必要があります。
+
+　上記をまとめて図示すると次のようになります。
+<pre>
+                             Aさんが push
+Aさんの個人リポジトリ --------------------------> Aさんの公開リポジトリ
+      ^                                                    |
+      |                                                    |
+      | Aさんが pull                                       | Bさんが pull
+      |                                                    |
+      |                                                    |
+      |                      Bさんが push                  V
+Bさんの公開リポジトリ <--------------------------- Bさんの個人リポジトリ
+</pre>
+
+　AさんとBさんのそれぞれの個人リポジトリと公開リポジトリがぐるぐると四角で一方方向につながれているのが特徴です。
+
+<h3>共同開発するときは</h3>
+
+　何かアプリケーションをふたりで共同開発するときは、次のような流れになります。
+
+<pre>
+1. Aさんがソースコードを変更します。
+2. Aさんは自分の個人リポジトリにコミットします。
+3. Aさんは個人リポジトリの変更を、自分の公開リポジトリにpushします。
+</pre>
+　この直後にBさんがソースコードに変更を加えたいとします。
+<pre>
+4. Bさんは、Aさんの公開リポジトリから情報を取得して、自分の個人リポジトリに反映(pull)します。これで、最新の状態のソースコードになります。
+5. Bさんはソースコードを変更します。
+6. Bさんは自分の個人リポジトリにコミットします。
+7. Bさんは個人リポジトリの変更を、自分の公開リポジトリにpushします。
+</pre>
+　そしてAさんが次に変更を加えたいときは、Bさんの公開リポジトリから情報を取得して、自分の個人リポジトリに反映しします。
+<pre>
+8. Bさんは、Aさんの公開リポジトリから情報を取得して、自分の個人リポジトリに反映(pull)します。これで、最新の状態のソースコードになります。
+9. 以下同
+</pre>
+
+　開発の基本的な流れはこんな感じです。えー順番にしか開発できないのと思った人もいると思います。でもgitはソースコードの差分をマージする機能を持っているので、平行して開発して、衝突したときは、矛盾がある部分だけを修正すればいいんです。
+
+<h3>個人リポジトリと公開リポジトリの作成方法</h3>
+
+　まずtaroとkenというユーザーがいると想定します。またSSHでリモートのサーバーに接続できるということと、Apacheが存在してWebサーバー(HTTPサーバー)にアクセスできると想定します。
+
+　自分の個人リポジトリの情報を、自分の公開リポジトリにpushするためには、SSHが必要です。他の人の公開リポジトリの情報を、自分の個人リポジトリにpullするには、HTTPが必要です。(これ以外の方法もありますが、これが一番オーソドックス)
+
+　今回は個人リポジトリも公開リポジトリも、同一のサーバーに置くことにしますが、通常は個人リポジトリはローカルの環境に、リモートリポジトリはリモートの環境に作成するのが普通です。
+
+<h4>toroの個人リポジトリの作成</h4>
+
+　まずtaroでログインしましょう。laboという開発用のディレクトリを作成しましょう。
+
+<pre>
+mkdir labo
+cd labo
+</pre>
+
+　次にmyappというアプリケーションのためのディレクトリを作成しましょう。
+
+<pre>
+mkdir myapp
+cd myapp
+</pre>
+
+　さぁ、taroのmyappのための個人リポジトリを作成しましょう。個人リポジトリの作成はmyappというディレクトリに入って「git init」をするだけです。
+
+<pre>
+git init
+</pre>
+
+　開発が始まります。何でもよいのですが、README.txtというファイルを最初に作ってみます。
+
+<pre>
+touch README.txt
+</pre>
+
+　そして、個人リポジトリにコミットします。「git add」で一時的にコミットしてから、「git commit」でコミットします。
+<pre>
+git add .
+git commit -m "first commit"
+</pre>
+
+　ユーザー名とメールアドレスの設定が求められた場合は設定しましょう。これは一度だけです。
+<pre>
+git config --global user.name "taro"
+git config --global user.email taro@foo.com
+</pre>
+
+<h4>taroの公開リポジトリの設定</h4>
+
+　公開リポジトリは個人リポジトリをcloneして作成します。公開リポジトリの場合は、--bareオプションを使って作成します。拡張子は.gitにしましょう。
+
+<pre>
+cd ~/labo
+git clone --bare myapp myapp.git
+</pre>
+
+　次に公開用のリポジトリにするためにいくつかの設定をします。公開リポジトリであることを示すためにgit-daemon-export-okというファイルを作成します。またHTTPサーバーで公開するためのいくつかの設定をします。
+
+<pre>
+cd myapp.git
+touch git-daemon-export-ok
+git --bare update-server-info
+mv hooks/post-update.sample hooks/post-update
+</pre>
+
+　次にこれをkenに公開するためにHTTPサーバーであるApacheが見ることのできる場所に、場所に移動します。ホームディレクトリ以下にpublic_htmlというディレクトを作成して、その中にmyapp.gitを配置しましょう。
+
+<pre>
+cd ~
+mkdir public_html
+mv ~/labo/myapp.git ~/public_html/
+</pre>
+
+　次にApacheのバージョンが2以降である場合は、設定ファイルを修正する必要があります。mod_userdirというモジュールを使って、各ユーザーのpublic_htmlがApacheからみえるようにします。この作業はroot権限で行う必要があります。Apacheの設定ファイルであるhttpd.confを修正しましょう。(CentOSでは、/etc/httpd/conf/httpd.conにあります)
+
+<pre>
+<IfModule mod_userdir.c>
+    #
+    # UserDir is disabled by default since it can confirm the presence
+    # of a username on the system (depending on home directory
+    # permissions).
+    #
+    # UserDir disable
+
+    #
+    # To enable requests to /~user/ to serve the user's public_html
+    # directory, remove the "UserDir disable" line above, and uncomment
+    # the following line instead:
+    #
+    UserDir public_html
+
+</IfModule>
+</pre>
+
+　UserDir disableの部分をコメントにして、UserDir public_htmlの部分のコメントをはずしましょう。
+
+　またもうひとつの注意点として、公開するためには、taroのディレクトリが他のユーザーから読み込むことができる必要があります。chmodで権限を変更しておきましょう。
+
+<pre>
+chmod 755 /home/taro
+</pre>
+
+<h4>個人リポジトリから公開リポジトリにpushする</h4>
+
+　公開リポジトリを作成したので、個人リポジトリの情報を公開リポジトリにpushすることができます。
+
+　では少しソースコードに変更を加えてコミットしましょう。
+<pre>
+cd ~/labo/myapp
+echo 'Hi' > README.txt
+git add .
+git commit -m "second updated"
+</pre>
+
+　これを自分の公開リポジトリにpushします。
+
+<pre>
+git push ssh://taro@localhost/~/public_html/myapp.git master
+</pre>
+
+　次のようなメッセージがでて、公開リポジトリに、個人リポジトリの変更が反映されます。
+<pre>
+Counting objects: 5, done.
+Writing objects: 100% (3/3), 235 bytes, done.
+Total 3 (delta 0), reused 0 (delta 0)
+To ssh://taro@localhost/~/public_html/myapp.git
+   a922551..bc2387e  master -> master
+</pre>
+
+<h3>kenが開発に参加</h3>
+
+　kenが開発に参加しました。taroの開発しているソースコードに変更を加えたいです。流れとしては、まずkenの個人リポジトリを作成します。これは、taroが公開しているmyappのリポジトリそのものになります。
+
+　これをcloneしましょう。まずkenでログインします。開発場所にするlaboディレクトリを作成しましょう。
+
+<pre>
+mkdir labo
+cd ~/labo
+</pre>
+
+　「/home/taro/public_html/myapp.git」に置いたtaroの公開リポジトリは「http://localhost/~taro/myapp.git」というURLでアクセスできます。
+
+　このURLを指定して、taroの公開リポジトリを、kenの個人リポジトリとしてコピーしましょう。
+
+<pre>
+git clone http://localhost/~taro/myapp.git
+</pre>
+
+　するとmyappというディレクトリがコピーされているので、中に入りましょう。
+
+<pre>
+cd myapp
+</pre>
+
+　これで開発が始められます。少し変更を加えてコミットしましょう。
+
+<pre>
+echo 'ppp' ``` README.txt
+git add .
+git commit -m "something changed"
+</pre>
+
+　ユーザー名とメールアドレスの設定が求められた場合は設定しましょう。これは一度だけです。
+
+<pre>
+git config --global user.name "ken"
+git config --global user.email ken@foo.com
+</pre>
+
+　次にkenの公開用のリポジトリを作成しましょう。taroのときとまったく同じ手順です。
+
+<pre>
+cd ~/labo
+git clone --bare myapp myapp.git
+cd myapp.git
+touch git-daemon-export-ok
+git --bare update-server-info
+mv hooks/post-update.sample hooks/post-update
+</pre>
+
+　次にこれをtaroに公開するためにHTTPサーバーであるApacheが見ることのできる場所に、場所に移動します。ホームディレクトリ以下にpublic_htmlというディレクトを作成して、その中にmyapp.gitを配置しましょう。
+
+<pre>
+cd ~
+mkdir public_html
+mv ~/labo/myapp.git ~/public_html/
+</pre>
+
+ 公開するためには、kenのディレクトリが他のユーザーから読み込むことができる必要があります。root権限になってchmodで権限を変更しておきましょう。
+
+<pre>
+chmod 755 /home/ken
+</pre>
+
+<h4>個人リポジトリから公開リポジトリにpushする</h4>
+
+　さぁ、もう少し変更を加えて、kenの個人リポジトリから、kenの公開リポジトリにpushしてみましょう。これはtaroで解説した手順とまったく同じものです。
+
+<pre>
+cd ~/labo/myapp
+echo 'PoPo' ``` README.txt
+git add .
+git commit -m "ken more update"
+</pre>
+
+　これを自分の公開リポジトリにpushします。
+
+<pre>
+git push ssh://ken@localhost/~/public_html/myapp.git master
+</pre>
+
+　これでkenの公開リポジトリは最新のものになりました。
+
+<h3>taroが開発を続ける</h3>
+
+　taroが続けて開発を続けるには、まずkenの変更を公開リポジトリから取り込む必要(pull)があります。
+
+<pre>
+cd ~/labo/myapp
+git pull http://localhost/~ken/myapp.git
+</pre>
+
+　以下のように変更が取り込まれます。
+
+<pre>
+ * branch            HEAD       -> FETCH_HEAD
+Updating bc2387e..260f45b
+Fast-forward
+ README.txt |    2 ++
+ 1 files changed, 2 insertions(+), 0 deletions(-)
+</pre>
+
+　後は最初のところで説明したように、taroとkenが、pushとpullを繰り返して開発を進めていきます。
+
+<pre>
+                             kenが push
+kenの個人リポジトリ --------------------------> kenの公開リポジトリ
+      ^                                                    |
+      |                                                    |
+      | kenが pull                                         | taroが pull
+      |                                                    |
+      |                                                    |
+      |                      taroが push                   V
+taroの公開リポジトリ <--------------------------- taroの個人リポジトリ
+</pre>
+
+　以上がgitを使った、共同開発の流れでした。終わり。そのうちに、perlbrewやcpanmと組み合わせた開発手法も解説したいと思います。
+
+　(リモートサーバーに公開リポジトリを置く場合はlocalhostの部分をリモートサーバーのアドレスにするだけです。)

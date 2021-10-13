@@ -1,0 +1,57 @@
+<h2>ペアレントディレクトリ</h2>
+
+ペアレントディレクトリとは、現在のディレクトリから見て、ひとつ上の階層のディレクトリのことです。親ディレクトリとも呼ばれます。
+
+たとえば以下のディレクトリがあったとします。
+
+<pre>
+/home/kimoto/labo
+</pre>
+
+このディレクトリのペアレントディレクトリは、以下になります。
+
+<pre>
+# ペアレントディレクトリ
+/home/kimoto
+</pre>
+
+<h3>ペアレントディレクトリのファイル名</h3>
+
+カレントディレクトリから見た、ペアレントディレクトリは「..」という特別なファイル名で表現されます。
+
+<pre>
+# ペアレントディレクトリのファイル名
+..
+</pre>
+
+<h3>ペアレントディレクトリをカレントディレクトリを変更する</h3>
+
+ペアレントディレクトリにカレントディレクトリを変更するには、<a href="/blog/20191012191854.html">cdコマンド</a>の引数に「..」を与えます。
+
+<pre>
+cd ..
+</pre>
+
+カレントディレクトリが「/home/kimoto/labo」だった場合は、カレントディレクトリが「/home/kimoto」に変更されます。
+
+<h3>ペアレントディレクトリの存在を確認する</h3>
+
+ペアレントディレクトリは、実際に<a href="/blog/20191220091958.html">隠しファイル</a>として、カレントディレクトリの内容として存在しています。
+
+<a href="/blog/20191126082723.html">lsコマンド</a>の「-a」オプションを使用して確認してみましょう。出力結果のサンプルです。
+
+<pre>
+drwxrwxr-x  6 kimoto kimoto 4096 Aug 14 17:51 .
+drwxrwxr-x 40 kimoto kimoto 4096 Nov  9 10:08 ..
+-rw-r--r--  1 kimoto kimoto 1116 Aug 15 08:28 convert_markdown.pl
+-rw-r--r--  1 kimoto kimoto  162 Sep 11 08:42 giblog.conf
+drwxrwxr-x  8 kimoto kimoto 4096 Oct 12 19:52 .git
+-rw-r--r--  1 kimoto kimoto    8 Aug 10 15:01 .gitignore
+drwxrwxr-x  3 kimoto kimoto 4096 Aug 10 15:01 lib
+drwxrwxr-x  7 kimoto kimoto 4096 Aug 10 15:04 public
+-rw-r--r--  1 kimoto kimoto  227 Aug 10 15:01 README
+-rw-r--r--  1 kimoto kimoto  219 Aug 10 15:01 serve.pl
+drwxrwxr-x  5 kimoto kimoto 4096 Aug 10 15:01 templates
+</pre>
+
+「..」が表示されていますね。

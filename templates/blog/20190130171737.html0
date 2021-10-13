@@ -1,0 +1,29 @@
+<div class="bread">
+  <ul itemscope itemtype="http://schema.org/BreadcrumbList">
+    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+      <a itemprop="item" href="/">
+        <span itemprop="name">Linux</span>
+      </a>
+      <meta itemprop="position" content="1" />
+    </li>
+    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+      <a itemprop="item" href="/blog/20200211081227.html">
+        <span itemprop="name">Linuxコマンド</span>
+      </a>
+      <meta itemprop="position" content="2" />
+    </li>
+    <li>
+      here
+    </li>
+  </ul>
+</div>
+
+<h2>rsyncコマンド - ディレクトリを同期する</h2>
+
+rsyncコマンドを使うとディレクトリを同期できます。同期とは、二つのディレクトリを同じ状態にすることです。
+
+これには、ディレクトリをコピーする機能も含まれているので、rsyncコマンドは、ディレクトリのコピーにも利用します。
+
+rsyncは、差分だけを転送してくれます。ですので、大きなディレクトリでも、変更分だけが転送されるので、パフォーマンスが良いです。
+
+

@@ -1,0 +1,49 @@
+<h2>SSHクライアントTeraTermの導入</h2>
+
+
+
+
+　SSHサーバを使用してリモートログインする場合は、SSHに対応したクライアントアプリケーションが必要です。SSHに対応したクライアントアプリケーションには、Putty,Pedorosa,TeraTermなどがあります。ここでは、TeraTermを使用することにします。
+
+<h3>TeraTermをダウンロードしてインストール</h3>
+
+　以下のサイトからTeraTermをダウンロードしてインストールします。
+
+>>
+[http://www.forest.impress.co.jp/lib/inet/servernt/remote/utf8teraterm.html:title=Tera Term]
+<<
+
+<h3>公開鍵と秘密鍵のペアの作成</h3>
+　SSHを使用してリモートログインをするためには、公開鍵と秘密鍵のペアを作成する必要があります。
+
+<pre>
+1.TeraTermを起動して、メニューバーから「Setup」→「SSH KeyGenerator」を選択。
+2.DSAにチェックを入れる。
+3.Key passphrase にパスフレーズを入力 Confirm passphrase で再入力。
+4.Generateをクリックして、公開鍵と秘密鍵を作成
+5.Save puplic key をクリックして公開鍵を保存( id_dsa.pub )
+6.Save private key をクリックして秘密鍵を保存( id_dsa )
+</pre>
+
+　パスフレーズとは、パスワードのことです。SSHで接続するためには、公開鍵と秘密鍵のペアを作成します。公開鍵は後ほどサーバに移動させます。
+
+<h3>公開鍵のアップロード</h3>
+
+　公開鍵をアップロードします。いったん、ログインしたユーザのホームディレクトリにアップロードしておくことにしましょう。公開鍵は 
+<pre>
+id_dsa.pub
+</pre>
+
+のほうです。秘密鍵と間違えないようにしましょう。
+
+<h3>サーバでの作業</h3>
+　ここからは、サーバでの設定作業に戻ります。サーバでの作業は[/blog/20090104123071.html:title=OpenSSHの導入]を見てください。
+
+<h3>TeraTermからSSHで接続</h3>
+　サーバでの設定作業が終われば、TeraTermでSSH接続です。TeraTermを起動して、サーバのIPアドレスを入力して、SSHにチェックを入れてOKを押します。SSH versionが SSH2 になっていることも確認しておきます。
+
+　セキュリティ警告が出るかもしれませんが、OKを押します。
+　
+　SSH認証の画面がでるので、ユーザ名とパスフレーズを入力します。RSA/DSAにチェックを入れて、先ほど保存した秘密鍵( Private key file )を選択します。OKを押します。(画面が止まった場合は、TeraTermを再起動します。)
+
+　接続できない場合は、/var/log/secure にエラーメッセージがでているはずです。

@@ -1,0 +1,34 @@
+<div class="bread">
+  <ul itemscope itemtype="http://schema.org/BreadcrumbList">
+    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+      <a itemprop="item" href="/">
+        <span itemprop="name">Linux</span>
+      </a>
+      <meta itemprop="position" content="1" />
+    </li>
+    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+      <a itemprop="item" href="/blog/20200211081227.html">
+        <span itemprop="name">Linuxコマンド</span>
+      </a>
+      <meta itemprop="position" content="2" />
+    </li>
+    <li>
+      here
+    </li>
+  </ul>
+</div>
+<h2>lsコマンド - ファイル一覧の表示</h2>
+
+lsコマンドはファイル一覧を表示するためのLinuxコマンドです。
+
+<pre>
+ls
+</pre>
+
+lsを実行したときの出力のサンプルです。ファイルとディレクトリの一覧が表示されます。
+
+<pre>
+convert_markdown.pl  giblog.conf  lib  public  README  serve.pl  templates
+</pre>
+
+

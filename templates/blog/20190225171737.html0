@@ -1,0 +1,13 @@
+<h2>公開リポジトリの作成方法 / Git</h2>
+
+
+
+　公開リポジトリの作成方法を忘れやすいのでメモ。myappというリポジトリがあったとしてmyapp.gitという公開リポジトリを作成するための手順。
+
+<pre>
+git clone --bare myapp myapp.git
+cd myapp.git
+touch git-daemon-export-ok
+git --bare update-server-info
+mv hooks/post-update.sample hooks/post-update
+</pre>

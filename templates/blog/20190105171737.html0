@@ -1,0 +1,148 @@
+<h2>Apacheの情報 | CentOSサーバー構築</h2>
+
+<h4>アクセスを拒否する設定</h4>
+
+　ひとつの例としてdataというディレクトリに対してアクセスを拒否する設定を行います。ファイルの構成としてはdataディレクトリ配下に.htaccessを置きます。そしてこの.htaccess1の中にアクセスを拒否する設定を行います。
+<pre>
+var--www--html--+--index.html
+                |
+                +--img--+--image1.png
+                |       |
+                |       +--iname2.png
+                |
+                |
+                +--data--+--data.txt
+                         |                  
+                         +--password.txt
+                         |
+                         +--.htaccess   .htaccessを適切に記述するとdata配下の
+                                        ファイル(data.txtとpassword.txt)
+                                        にアクセスできなくなる。
+</pre>
+
+.htaccessファイルはの記述は次のようになります。
+
+<pre>
+Deny form all
+</pre>
+
+　これはすべてのIPアドレスからのアクセスを拒否するという意味になります。これでdataディレクトリ配下へのアクセスはできなくなります。
+
+<h4>.htaccessの配置する場合の注意点</h4>
+
+　.htaccessに関する注意点がひとつあります。それはApacheのデフォルトの設定ではドキュメントルート配下での.htaccessの設置は意味を持たない設定になっているということです。これでは.htaccessを設定しても意味がありません。
+
+　ですので.htaccessのアクセス制御に関するディレクティブだけが意味を持つような設定にhttpd.confを書き換える必要があります。
+
+　ドキュメントルートのディレクトリのAllowOverRideの部分がNoneという.htaccessを無効にする設定になっているので、Limitというアクセス制御のディレクティブだけが意味を持つように変更します。
+
+<pre>
+<Directory "/var/www/html">
+    #
+    # ...
+
+    AllowOverride None
+
+    #
+    # ...
+
+</Directory>
+</pre>
+
+　これを以下のように変更します。
+
+<pre>
+<Directory "/var/www/html">
+    #
+    # ...
+
+    AllowOverride Limit
+
+    #
+    # ...
+
+</Directory>
+</pre>
+
+<h3>ドキュメントルート配下でCGIの実行を許可する</h3>
+
+　デフォルトではドキュメントルート配下でCGIを実行することができません。ドキュメントルート配下でCGIを実行するためには以下の設定をhttpd.confファイルで行います。
+
+<h4>ExecCGIをドキュメントルートのOptionsディレクティブに追加</h4>
+
+　ExecCGIをドキュメントルートのOptionsディレクティブに追加します。次の例はドキュメントルートが「/var/www/html」の場合の例です。
+
+　デフォルトでは以下のようになっています。
+
+<pre>
+<Directory "/var/www/html">
+
+#
+<h3> ..</h3>
+
+    Options Indexes FollowSymLinks
+
+#
+<h3> ..</h3>
+
+</Directory>
+</pre>
+
+　OptionsディレクティブにExecCGIを追加します。
+
+<pre>
+<Directory "/var/www/html">
+
+#
+<h3> ..</h3>
+
+    Options Indexes FollowSymLinks ExecCGI
+
+#
+<h3> ..</h3>
+
+</Directory>
+</pre>
+
+　これでドキュメントルート配下でCGIを実行することができるようになります。
+
+<h4>拡張の動作に関する設定</h4>
+
+　「.cgi」という拡張の場合はCGIスクリプトとして実行される設定を行うには「AddHandler」ディレクティブを使用します。これはApacheのデフォルトの設定のはずですので確認だけしておきましょう。以下のような記述がhttpd.confの中にあるはずです。
+
+<pre>
+AddHandler cgi-script .cgi
+</pre>
+
+<h3>Apacheのバージョンを調べる</h3>
+
+　Apcaheのバージョンを調べるには「httpd -v」を使用します。
+
+<pre>
+httpd -v
+</pre>
+
+　次のような出力を得ることができます。
+
+<pre>
+Server version: Apache/2.2.8 (Unix)
+Server built:   Jan 24 2008 10:44:19
+</pre>
+
+<h3>バーチャルホストで複数IPアドレスに対応した複数のパスの設定</h3>
+
+　<strong>バーチャルホスト</strong>で<strong>複数IPアドレス</strong>に対応して複数パスの設定を行う例です。
+
+<pre>
+<VirtualHost *:80>
+
+    ProxyPass /app1 http://localhost:3000
+    ProxyPassReverse /app1 http://localhost:3000
+
+    ProxyPass /app2 http://localhost:3001
+    ProxyPassReverse /app2 http://localhost:3001
+
+</VirtualHost>
+</pre>
+
+　「*:80」と指定することですべてのIPアドレスからの80番ポートへの接続を受けることができます。リバースプロキシとして設定するので「ProxyPass」と「ProxyPassReverse」の両方を指定します。

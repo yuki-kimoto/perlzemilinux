@@ -1,0 +1,53 @@
+<div class="bread">
+  <ul itemscope itemtype="http://schema.org/BreadcrumbList">
+    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+      <a itemprop="item" href="/">
+        <span itemprop="name">Linux</span>
+      </a>
+      <meta itemprop="position" content="1" />
+    </li>
+    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+      <a itemprop="item" href="/blog/20200211081227.html">
+        <span itemprop="name">Linuxコマンド</span>
+      </a>
+      <meta itemprop="position" content="2" />
+    </li>
+    <li>
+      here
+    </li>
+  </ul>
+</div>
+
+<h2>findコマンド - ディレクトリの再帰的な検索</h2>
+
+findコマンドを使うと、ディレクトリの再帰的な検索を行うことができます。
+
+<pre>
+find ディレクトリ名
+</pre>
+
+「/usr/local/lib」以下を検索するサンプルです。
+
+<pre>
+find /usr/local/lib
+</pre>
+
+出力結果のサンプルです。
+
+<pre>
+/usr/local/lib
+/usr/local/lib/liblept.so.3.0.0
+/usr/local/lib/liblept.so.3
+/usr/local/lib/liblept.so
+/usr/local/lib/liblept.la
+/usr/local/lib/liblept.a
+/usr/local/lib/libtesseract.so.3.0.2
+/usr/local/lib/libtesseract.so.3
+/usr/local/lib/libtesseract.so
+/usr/local/lib/libtesseract.la
+/usr/local/lib/libtesseract.a
+/usr/local/lib/pkgconfig
+/usr/local/lib/pkgconfig/tesseract.pc
+</pre>
+
+

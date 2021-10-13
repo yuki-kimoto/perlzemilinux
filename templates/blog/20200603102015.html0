@@ -1,0 +1,39 @@
+<div class="bread">
+  <ul itemscope itemtype="http://schema.org/BreadcrumbList">
+    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+      <a itemprop="item" href="/">
+        <span itemprop="name">Linux</span>
+      </a>
+      <meta itemprop="position" content="1" />
+    </li>
+    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+      <a itemprop="item" href="/blog/20200211081227.html">
+        <span itemprop="name">Linuxコマンド</span>
+      </a>
+      <meta itemprop="position" content="2" />
+    </li>
+    <li>
+      here
+    </li>
+  </ul>
+</div>
+
+<h2>chownコマンド - 所有者ユーザーを変更する</h2>
+
+chownコマンドを使うと、所有者ユーザーを変更することができます。
+
+<pre>
+chown 所有者ユーザー ファイル名
+</pre>
+
+chownコマンドで、所有者ユーザーを変更するサンプルです。
+
+<pre>
+chown kimoto file
+</pre>
+
+所有者ユーザーについてはパーミッションの記事を参考にしてください。
+
+<a href="/blog/20200526082545.html">パーミッションとは</a>
+
+

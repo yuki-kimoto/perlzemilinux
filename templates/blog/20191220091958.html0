@@ -1,0 +1,68 @@
+<h2>隠しファイルとは</h2>
+
+隠しファイルとは、Linuxにおいて「.」で始まるファイルのことです。通常は表示しておきたくないファイルやディレクトリに利用されます。
+
+<pre>
+# 隠しファイル
+.foo
+.foo.txt
+</pre>
+
+<h3>隠しファイルの表示方法</h3>
+
+隠しファイルは<a href="/blog/20191126082723.html">lsコマンド</a>の「-a」オプションを使用すると表示することができます。「-a」は、allを意味しています。
+
+<pre>
+ls -a
+</pre>
+
+出力結果のサンプルです。
+
+<pre>
+[kimoto@www7402u ~]$ ls -a
+.              .cpan            kimopro.zip  .mysql_history  .sqlite_history
+..             .cpanm           labo         .netrc          .ssh
+.bash_history  .gconf           labo.tar.gz  oradiag_kimoto  test
+.bash_logout   .gconfd          .lesshst     perl5           tmp
+.bash_profile  .gitconfig       .lftp        .perlbrew       .vimrc
+.bashrc        .gnome2          lib          .perldl_hist    .w3m
+book           .gnome2_private  local        plan_delete     .xslate_cache
+.config        .gnupg           mbox         public_html
+</pre>
+
+<h3>隠しファイルの例</h3>
+
+Linuxでよく見かける隠しファイルの例です。
+
+<h4>bashの設定ファイル</h4>
+
+bashの設定ファイルは、隠しファイルです。
+
+<pre>
+.bash_profile
+.bashrc 
+</pre>
+
+<h4>sshのディレクトリ</h4>
+
+sshの設定ファイルなどが格納されているディレクトリは、隠しファイルです。
+
+<pre>
+.ssh
+</pre>
+
+<h4>vimの設定ファイル</h4>
+
+vimの設定ファイルは、隠しファイルです。
+
+<pre>
+.vimrc
+</pre>
+
+<h4>gitの情報ディレクトリ</h4>
+
+gitの情報が格納されているディレクトリは、隠しファイルです。
+
+<pre>
+.git
+</pre>

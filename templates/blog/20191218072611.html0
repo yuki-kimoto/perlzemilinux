@@ -1,0 +1,66 @@
+<h2>カレントディレクトリとは</h2>
+
+カレントディレクトリとは、現在作業を行っているディレクトリのことです。カレントは英語で「current」で「現在の」という意味です。Linuxにおけるディレクトリは、Windowsにおけるフォルダに該当します。
+
+<h3>カレントディレクトリの変更</h3>
+
+カレントディレクトリを変更するには<a href="/blog/20191012191854.html">cdコマンド</a>を使用します。
+
+<pre>
+cd /home/kimoto/labo
+</pre>
+
+「/home/kimoto/labo」というディレクトリが、カレントディレクトリになります。
+
+<h3>カレントディレクトリからの相対パス指定</h3>
+
+カレントディレクトリが設定されている効果として、ファイル名が、カレントディレクトリから<a href="/blog/20191216082522.html">相対パス</a>で指定できます。
+
+<a href="/blog/20191126082723.html">lsコマンド</a>で「foo」というファイルを相対パスで指定してみましょう。
+
+<pre>
+ls foo
+</pre>
+
+これは実際には以下のような<a href="/blog/20191217081903.html">絶対パス</a>で指定したのと同じ意味になります。
+
+<pre>
+ls /home/kimoto/labo/foo
+</pre>
+
+<h3>カレントディレクトリのファイル名</h3>
+
+カレントディレクトリ自体は「.」という特別なファイル名で表現されます。
+
+<pre>
+# カレントディレクトリのファイル名
+.
+</pre>
+
+以下のようにlsに「.」を与えて実行すると、カレントディレクトリのファイル一覧が表示されます。
+
+<pre>
+ls .
+</pre>
+
+<h3>カレントディレクトリの存在を確認する</h3>
+
+カレントディレクトリは、実際に<a href="/blog/20191220091958.html">隠しファイル</a>として、カレントディレクトリの内容として存在しています。
+
+<a href="/blog/20191126082723.html">lsコマンド</a>の「-a」オプションを使用して確認してみましょう。出力結果のサンプルです。
+
+<pre>
+drwxrwxr-x  6 kimoto kimoto 4096 Aug 14 17:51 .
+drwxrwxr-x 40 kimoto kimoto 4096 Nov  9 10:08 ..
+-rw-r--r--  1 kimoto kimoto 1116 Aug 15 08:28 convert_markdown.pl
+-rw-r--r--  1 kimoto kimoto  162 Sep 11 08:42 giblog.conf
+drwxrwxr-x  8 kimoto kimoto 4096 Oct 12 19:52 .git
+-rw-r--r--  1 kimoto kimoto    8 Aug 10 15:01 .gitignore
+drwxrwxr-x  3 kimoto kimoto 4096 Aug 10 15:01 lib
+drwxrwxr-x  7 kimoto kimoto 4096 Aug 10 15:04 public
+-rw-r--r--  1 kimoto kimoto  227 Aug 10 15:01 README
+-rw-r--r--  1 kimoto kimoto  219 Aug 10 15:01 serve.pl
+drwxrwxr-x  5 kimoto kimoto 4096 Aug 10 15:01 templates
+</pre>
+
+「.」が表示されていますね。
