@@ -4,7 +4,7 @@ use utf8;
 
 my @args = @ARGV;
 
-my $deploy_cmd = q(ssh prod_perl_club_sites 'git -C ~/www/en_linux-public fetch && git -C ~/www/en_linux-public reset --hard origin/master');
+my $deploy_cmd = q(ssh prod_perl_club_sites 'git -C ~/www/perlzemilinux-public fetch && git -C ~/www/perlzemilinux-public reset --hard origin/master');
 
 system($deploy_cmd) == 0
   or die "Can't execute deploy command: $deploy_cmd:$!";
